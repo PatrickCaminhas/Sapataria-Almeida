@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Sapataria Almeida (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Sapataria Almeida (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sapataria Almeida", "Sapataria Almeida\Sapataria Almeida.csproj", "{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|ARM64.Build.0 = Debug|ARM64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|x64.ActiveCfg = Debug|x64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|x64.Build.0 = Debug|x64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|x64.Deploy.0 = Debug|x64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|x86.ActiveCfg = Debug|x86
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|x86.Build.0 = Debug|x86
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Debug|x86.Deploy.0 = Debug|x86
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|ARM64.ActiveCfg = Release|ARM64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|ARM64.Build.0 = Release|ARM64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|ARM64.Deploy.0 = Release|ARM64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|x64.ActiveCfg = Release|x64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|x64.Build.0 = Release|x64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|x64.Deploy.0 = Release|x64
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|x86.ActiveCfg = Release|x86
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|x86.Build.0 = Release|x86
+		{96E3C7BD-1218-4C8F-A16D-26495A71E4D1}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {750ED4DA-838F-489D-8162-DA3D461C5047}
+	EndGlobalSection
+EndGlobal
