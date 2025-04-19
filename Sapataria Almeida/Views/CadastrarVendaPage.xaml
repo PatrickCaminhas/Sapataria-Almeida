@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Sapataria_Almeida.Views.CadastrarVendaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Sapataria_Almeida.Views"
+    xmlns:vm="using:Sapataria_Almeida.ViewModels"
+    xmlns:models="using:Sapataria_Almeida.Models"
+    xmlns:converters="using:Sapataria_Almeida.Converters"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:CadastroVendaViewModel/>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <converters:CurrencyFormatConverter x:Key="CurrencyConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Painel Esquerdo -->
+        <StackPanel Grid.Column="0" Margin="20" Spacing="15">
+            <TextBlock Text="Tipo de Produto:" FontWeight="Bold"/>
+            <ComboBox 
+                ItemsSource="{x:Bind ViewModel.TiposProdutos}"
+                SelectedItem="{x:Bind ViewModel.TipoProduto, Mode=TwoWay}"
+                PlaceholderText="Selecione o produto"/>
+
+            <TextBlock Text="Valor:" FontWeight="Bold"/>
+            <TextBox 
+                Text="{x:Bind ViewModel.Valor, Mode=TwoWay}"
+                PlaceholderText="Digite o valor"
+                InputScope="Number"/>
+
+            <Button 
+                Content="Adicionar à Lista"
+                Command="{x:Bind ViewModel.AdicionarItemCommand}"
+                Margin="0,20" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <!-- Painel Direito -->
+        <StackPanel Grid.Column="1" Margin="20" Spacing="15">
+            <TextBlock Text="Carrinho de Compras:" FontWeight="Bold" FontSize="16"/>
+
+            <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" Height="400">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ItemVenda">
+                        <StackPanel Orientation="Horizontal" Spacing="20" Padding="10">
+                            <TextBlock Text="{x:Bind TipoProduto}" Width="200"/>
+                            <TextBlock Text="{x:Bind Valor, Converter={StaticResource CurrencyConverter}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel Spacing="10" Margin="0,20">
+                <TextBlock Text="Método de Pagamento:" FontWeight="Bold"/>
+                <ComboBox
+                    ItemsSource="{x:Bind ViewModel.MetodosPagamento}"
+                    SelectedItem="{x:Bind ViewModel.MetodoPagamento, Mode=TwoWay}"
+                    PlaceholderText="Selecione o método"/>
+
+                <Button 
+                    Content="Finalizar Venda"
+                    Command="{x:Bind ViewModel.FinalizarVendaCommand}"
+                    HorizontalAlignment="Stretch" 
+                    Padding="15,10"
+                    FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

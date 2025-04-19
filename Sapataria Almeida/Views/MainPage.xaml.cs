@@ -10,29 +10,26 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Sapataria_Almeida.Views;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Sapataria_Almeida
+namespace Sapataria_Almeida.Views
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class MainPage : Page
     {
-        public MainWindow()
+        public MainPage()
         {
             this.InitializeComponent();
-            MainFrame.Navigate(typeof(Views.MainPage));
         }
-
-
-
-   
-
+        private void AbrirCadastrarVenda_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CadastrarVendaPage));
+        }
     }
 }
