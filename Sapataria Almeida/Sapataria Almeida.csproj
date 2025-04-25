@@ -14,6 +14,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Views\CadastrarVendaPage.xaml" />
+    <None Remove="Views\DetalhesConsertoPage.xaml" />
+    <None Remove="Views\Dialogs\EditarItemDialog.xaml" />
     <None Remove="Views\EditarItensConsertoPage.xaml" />
     <None Remove="Views\ListarConsertosPage.xaml" />
     <None Remove="Views\MainPage.xaml" />
@@ -74,7 +76,16 @@
   <ItemGroup>
     <Folder Include="Database\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Views\Dialogs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\EditarItemDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DetalhesConsertoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\ListarConsertosPage.xaml">

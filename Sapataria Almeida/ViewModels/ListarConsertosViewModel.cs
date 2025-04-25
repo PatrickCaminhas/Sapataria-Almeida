@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Sapataria_Almeida.Data;
 using Sapataria_Almeida.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Sapataria_Almeida.ViewModels
@@ -28,7 +29,9 @@ namespace Sapataria_Almeida.ViewModels
             var lista = await _db.Consertos
                                  .Include(c => c.Cliente)
                                  .ToListAsync();
-            foreach (var c in lista)
+            var ordenada = lista.OrderByDescending(c => c.DataAbertura);
+
+            foreach (var c in ordenada)
                 Consertos.Add(c);
         }
     }

@@ -20,12 +20,12 @@ namespace Sapataria_Almeida.Views
             await ViewModel.LoadConsertosCommand.ExecuteAsync(null);
         }
 
-        private void OnItemClick(object sender, ItemClickEventArgs e)
+        private void OnEditarConsertoClick(object sender, RoutedEventArgs e)
         {
-            // se quiser navegar para outra página:
-            // var conserto = (Conserto)e.ClickedItem;
-            // Frame.Navigate(typeof(DetalhesConsertoPage), conserto.Id);
+            if (sender is Button btn && btn.Tag is int id)
+                Frame.Navigate(typeof(DetalhesConsertoPage), id);
         }
+
         private void VoltarParaMainPage(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));

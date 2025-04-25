@@ -8,6 +8,7 @@
   xmlns:vm="using:Sapataria_Almeida.ViewModels"  
   xmlns:models="using:Sapataria_Almeida.Models"  
   xmlns:converters="using:Sapataria_Almeida.Converters"  
+  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
   mc:Ignorable="d">  
 
    <!-- define o ViewModel e dá um nome para binding -->  
@@ -69,6 +70,7 @@
                                    <TextBlock Text="{x:Bind Cliente.Nome}" Grid.Column="2"/>  
                                    <Button Content="Editar Conserto"  
                                        Grid.Column="3"  
+                                       Click="OnEditarConsertoClick"
                                        HorizontalAlignment="Left"  
                                        Tag="{x:Bind Id}"/>  
                                </Grid>  
