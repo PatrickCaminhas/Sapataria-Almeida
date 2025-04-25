@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Sapataria_Almeida.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -21,11 +22,22 @@ namespace Sapataria_Almeida.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CadastrarConserto : Page
+    public sealed partial class EditarItensConsertoPage : Page
     {
-        public CadastrarConserto()
+        public EditarItensConsertoViewModel ViewModel { get; }
+        public EditarItensConsertoPage()
         {
             this.InitializeComponent();
+            ViewModel = (EditarItensConsertoViewModel)DataContext;
+
+        }
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is int id)
+            {
+                ViewModel.ConsertoId = id;
+                await ViewModel.LoadItensCommand.ExecuteAsync(null);
+            }
         }
     }
 }

@@ -9,8 +9,11 @@ namespace Sapataria_Almeida.Models
 {
     public class ItemVenda
     {
-        public string TipoProduto { get; set; }
+        public int Id { get; set; }
+        public string TipoProduto { get; set; } = string.Empty;
         public decimal Valor { get; set; }
 
+        public int VendaId { get; set; }           // foreign key
+        public Venda Venda { get; set; } = null!; // navegação para o pai
     }
 }

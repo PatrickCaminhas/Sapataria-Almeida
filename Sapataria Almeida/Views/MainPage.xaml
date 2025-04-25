@@ -12,7 +12,8 @@
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button Content="Cadastrar Venda" Click="AbrirCadastrarVenda_Click"/>
-            <Button Content="Cadastrar Conserto" Click="AbrirCadastrarVenda_Click"/>
+            <Button Content="Cadastrar Conserto" Click="AbrirCadastrarConserto_Click"/>
+            <Button Content="Listar Consertos" Click="ListarConsertosPage_Click"/>
 
         </StackPanel>
     </Grid>

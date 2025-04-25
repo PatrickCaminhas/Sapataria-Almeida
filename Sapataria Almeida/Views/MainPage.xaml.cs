@@ -31,5 +31,17 @@ namespace Sapataria_Almeida.Views
         {
             this.Frame.Navigate(typeof(CadastrarVendaPage));
         }
+        private void AbrirCadastrarConserto_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CadastrarConsertoPage));
+        }
+        private void ListarConsertosPage_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(ListarConsertosPage));
+        }
+        private void EditarItensConsertoPage_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(EditarItensConsertoPage));
+        }
     }
 }

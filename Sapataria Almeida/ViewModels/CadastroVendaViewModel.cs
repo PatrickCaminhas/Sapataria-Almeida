@@ -1,6 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Dispatching;
+
+using Sapataria_Almeida.Data;
 using Sapataria_Almeida.Models;
 
 namespace Sapataria_Almeida.ViewModels
@@ -10,6 +17,10 @@ namespace Sapataria_Almeida.ViewModels
         private string _tipoProduto = string.Empty;
         private string _valor = string.Empty;
         private string _metodoPagamento = string.Empty;
+        private readonly AppDbContext _db = new AppDbContext();
+
+
+
 
         public string TipoProduto
         {
@@ -34,7 +45,7 @@ namespace Sapataria_Almeida.ViewModels
         public ObservableCollection<ItemVenda> Carrinho { get; } = new();
 
         public IRelayCommand AdicionarItemCommand { get; }
-        public IRelayCommand FinalizarVendaCommand { get; }
+        public IAsyncRelayCommand FinalizarVendaCommand { get; }
 
         public CadastroVendaViewModel()
         {
@@ -42,7 +53,7 @@ namespace Sapataria_Almeida.ViewModels
             _valor = string.Empty;
             _metodoPagamento = string.Empty;
             AdicionarItemCommand = new RelayCommand(AdicionarItem);
-            FinalizarVendaCommand = new RelayCommand(FinalizarVenda);
+            FinalizarVendaCommand = new AsyncRelayCommand(FinalizarVendaAsync);
         }
 
         private void AdicionarItem()
@@ -55,16 +66,25 @@ namespace Sapataria_Almeida.ViewModels
             }
         }
 
-        private void FinalizarVenda()
+        private async Task FinalizarVendaAsync()
         {
             if (Carrinho.Count == 0 || string.IsNullOrEmpty(MetodoPagamento))
             {
-                // Implementar lógica de diálogo via serviço/messaging
+                // avisar usuário…
                 return;
             }
 
+            var novaVenda = new Venda
+            {
+                MetodoPagamento = this.MetodoPagamento,
+                Itens = this.Carrinho.ToList()
+            };
+
+            await _db.Vendas.AddAsync(novaVenda);
+            await _db.SaveChangesAsync();
+
             Carrinho.Clear();
-            MetodoPagamento = "";
+            MetodoPagamento = string.Empty;
         }
         public ObservableCollection<string> TiposProdutos { get; } = new ObservableCollection<string>
     {

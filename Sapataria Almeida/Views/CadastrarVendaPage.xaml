@@ -27,6 +27,11 @@
 
         <!-- Painel Esquerdo -->
         <StackPanel Grid.Column="0" Margin="20" Spacing="15">
+            <Button Content="⟵ Voltar"
+        Click="VoltarParaMainPage"
+        HorizontalAlignment="Left"
+        Margin="0,0,0,10"/>
+
             <TextBlock Text="Tipo de Produto:" FontWeight="Bold"/>
             <ComboBox 
                 ItemsSource="{x:Bind ViewModel.TiposProdutos}"

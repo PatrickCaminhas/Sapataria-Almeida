@@ -21,16 +21,24 @@ using Windows.Foundation.Collections;
 
 namespace Sapataria_Almeida.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    /// <summary>  
+    /// An empty page that can be used on its own or navigated to within a Frame.  
+    /// </summary>  
     public sealed partial class CadastrarVendaPage : Page
     {
-        public CadastroVendaViewModel ViewModel => (CadastroVendaViewModel)DataContext;
+        private CadastroVendaViewModel _viewModel;
+        public CadastroVendaViewModel ViewModel => _viewModel;
 
         public CadastrarVendaPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            _viewModel = new CadastroVendaViewModel();
+            DataContext = _viewModel;
         }
+        private void VoltarParaMainPage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
+
     }
 }

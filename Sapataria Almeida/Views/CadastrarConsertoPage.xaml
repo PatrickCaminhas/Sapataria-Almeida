@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Sapataria_Almeida.Views.CadastrarConsertoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Sapataria_Almeida.Views"
+    xmlns:vm="using:Sapataria_Almeida.ViewModels"
+    xmlns:models="using:Sapataria_Almeida.Models"
+    xmlns:converters="using:Sapataria_Almeida.Converters"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:CadastroConsertoViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <converters:CurrencyFormatConverter x:Key="CurrencyConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ESQUERDA: Cliente e Itens de Conserto -->
+        <StackPanel Grid.Column="0" Margin="20" Spacing="20">
+            <Button Content="⟵ Voltar"
+            Click="VoltarParaMainPage"
+            HorizontalAlignment="Left"
+            Margin="0,0,0,10"/>
+
+            <!-- Busca de Cliente -->
+            <TextBlock Text="Ordem de Serviço" FontSize="18" FontWeight="Bold"/>
+
+            <TextBlock Text="Buscar Cliente (nome ou telefone)" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+               
+                <TextBox Width="200"
+                 Text="{x:Bind ViewModel.SearchCliente, Mode=TwoWay}"/>
+                <Button Content="🔍" Command="{x:Bind ViewModel.SearchClienteCommand}"/>
+            </StackPanel>
+            <ListView ItemsSource="{x:Bind ViewModel.ClientesEncontrados}"
+                SelectedItem="{x:Bind ViewModel.ClienteSelecionado, Mode=TwoWay}"
+                SelectionChanged="OnClienteSelecionado"
+                Height="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Cliente">
+                        <TextBlock Text="{x:Bind Nome}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <TextBlock Text="Nome do Cliente:" FontWeight="Bold"/>
+            <TextBox Text="{x:Bind ViewModel.NomeCliente, Mode=TwoWay}"/>
+
+            <TextBlock Text="Telefone do Cliente:" FontWeight="Bold"/>
+            <TextBox Text="{x:Bind ViewModel.TelefoneCliente, Mode=TwoWay}"
+               InputScope="TelephoneNumber"/>
+
+            <!-- Itens de Conserto -->
+            <TextBlock Text="Tipo de Conserto e Valor" FontWeight="Bold" Margin="0,20,0,0"/>
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBox Width="200" PlaceholderText="Tipo"
+                 Text="{x:Bind ViewModel.TipoConserto, Mode=TwoWay}"/>
+                <TextBox Width="100" PlaceholderText="Valor"
+                 InputScope="Number"
+                 Text="{x:Bind ViewModel.ValorConserto, Mode=TwoWay}"/>
+            </StackPanel>
+            <TextBlock Text="Descrição (opcional)" FontWeight="Bold"/>
+            <TextBox Text="{x:Bind ViewModel.Descricao, Mode=TwoWay}"
+               AcceptsReturn="True" Height="60"/>
+            <Button Content="Adicionar Conserto"
+              Command="{x:Bind ViewModel.AddItemCommand}"
+              Margin="0,10,0,0"/>
+
+        </StackPanel>
+
+        <!-- DIREITA: Carrinho e Finalização -->
+        <StackPanel Grid.Column="1" Margin="20" Spacing="15">
+            <TextBlock Text="Carrinho" FontSize="18" FontWeight="Bold"/>
+            <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" Height="350">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ItemConserto">
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <TextBlock Text="{x:Bind TipoConserto}" Width="150"/>
+                            <TextBlock Text="{x:Bind Valor, Converter={StaticResource CurrencyConverter}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <TextBlock Text="Método de Pagamento:" FontWeight="Bold"/>
+            <ComboBox ItemsSource="{x:Bind ViewModel.MetodosPagamento}"
+                SelectedItem="{x:Bind ViewModel.MetodoPagamento, Mode=TwoWay}"
+                PlaceholderText="Selecione"/>
+
+            <TextBlock Text="Sinal (R$):" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox Text="{x:Bind ViewModel.Sinal, Mode=TwoWay}"
+             PlaceholderText="Digite o valor do sinal"
+             InputScope="Number"/>
+
+            <Button x:Name="BtnFinalizar"
+                Content="Finalizar Conserto"
+                Click="BtnFinalizar_Click"
+               HorizontalAlignment="Stretch" Padding="15,10" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</Page>
