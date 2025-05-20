@@ -26,6 +26,8 @@ namespace Sapataria_Almeida.Data
         public DbSet<ItemConserto> ItensConserto { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
 
+        public DbSet<Notificacao> Notificacoes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var databasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
@@ -37,22 +39,31 @@ namespace Sapataria_Almeida.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Conserto>()
-                   .HasMany(c => c.Itens)
-                   .WithOne(i => i.Conserto)
-                   .HasForeignKey(i => i.ConsertoId)
-                   .OnDelete(DeleteBehavior.Cascade);
+            // Configura Id de Conserto para ser gerado manualmente (ValueGeneratedNever)
+            modelBuilder.Entity<Conserto>(entity =>
+            {
+                entity.HasKey(c => c.Id);
+                entity.Property(c => c.Id);
 
-            modelBuilder.Entity<Conserto>()
-                    .HasOne(c => c.Cliente)
-                    .WithMany()    // se Cliente não tiver coleção de Consertos
-                    .HasForeignKey(c => c.ClienteId);
+                // Relacionamentos
+                entity.HasMany(c => c.Itens)
+                      .WithOne(i => i.Conserto)
+                      .HasForeignKey(i => i.ConsertoId)
+                      .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Venda>()
-                .HasMany(v => v.Itens)
-                .WithOne(i => i.Venda)
-                .HasForeignKey(i => i.VendaId)
-                .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(c => c.Cliente)
+                      .WithMany()
+                      .HasForeignKey(c => c.ClienteId);
+            });
+
+            modelBuilder.Entity<Venda>(entity =>
+            {
+                entity.HasKey(v => v.Id);
+                entity.HasMany(v => v.Itens)
+                      .WithOne(i => i.Venda)
+                      .HasForeignKey(i => i.VendaId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
         }
 
 

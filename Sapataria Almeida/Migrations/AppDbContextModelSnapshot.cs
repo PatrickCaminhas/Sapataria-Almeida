@@ -48,12 +48,19 @@ namespace Sapataria_Almeida.Migrations
                     b.Property<DateTime>("DataAbertura")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DataFinal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("MetodoPagamento")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("Sinal")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("Sinal")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -71,7 +78,14 @@ namespace Sapataria_Almeida.Migrations
                     b.Property<int>("ConsertoId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("DataEntrega")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Descricao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TipoConserto")

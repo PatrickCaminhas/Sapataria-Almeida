@@ -1,16 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application
-    x:Class="Sapataria_Almeida.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Sapataria_Almeida">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-                <!-- Other merged dictionaries here -->
-            </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
-        </ResourceDictionary>
-    </Application.Resources>
+<Application  
+   x:Class="Sapataria_Almeida.App"  
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+   xmlns:local="using:Sapataria_Almeida"  
+   RequestedTheme="Dark"  
+   >  
+   <Application.Resources>  
+       <ResourceDictionary>  
+           <ResourceDictionary.MergedDictionaries>  
+               <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />  
+               <!-- Other merged dictionaries here -->  
+           </ResourceDictionary.MergedDictionaries>  
+           <!-- Other app resources here   
+           <SolidColorBrush x:Key="AppBackgroundBrush" Color="#432818"/>  
+           <SolidColorBrush x:Key="TextFillColorPrimary" Color="#FFE6A7"/>  
+           <SolidColorBrush x:Key="ButtonBackground" Color="#FFE6A7"/>  
+           <SolidColorBrush x:Key="ButtonForeground" Color="#6F1D1B"/>
+            <SolidColorBrush x:Key="BorderCollor" Color="#BB9457"/>
+            <SolidColorBrush x:Key="BackgroundSecondary" Color="#99582A"/> -->
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#221F1D"/>
+            <SolidColorBrush x:Key="TextFillColorPrimary" Color="#C8BBA7"/>
+            <SolidColorBrush x:Key="ButtonBackground" Color="#B8A78D"/>
+            <SolidColorBrush x:Key="ButtonForeground" Color="#22190C"/>
+            <SolidColorBrush x:Key="BorderCollor" Color="#776C5A"/>
+            <SolidColorBrush x:Key="BackgroundSecondary" Color="#4D4436"/>
+            <Style TargetType="TextBlock" >  
+               <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}"/>  
+               <Setter Property="FontSize" Value="16"/>  
+               <Setter Property="FontWeight" Value="SemiBold"/>  
+           </Style>  
+           <Style TargetType="Button">  
+               <Setter Property="Background" Value="{StaticResource ButtonBackground}"/>  
+               <Setter Property="Foreground" Value="{StaticResource ButtonForeground}"/>  
+               <Setter Property="FontWeight" Value="SemiBold"/>  
+               <Setter Property="Padding" Value="10,5"/>  
+               <Setter Property="CornerRadius" Value="4"/>  
+           </Style>  
+           <Style TargetType="Grid" x:Key="DialogBackground">
+                <Setter Property="Background" Value="{StaticResource AppBackgroundBrush}"/>  
+           </Style>
+            <Style TargetType="TextBlock" x:Key="DialogText">
+                <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="{StaticResource BackgroundSecondary}" />
+                <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderCollor}" />
+                <Setter Property="SelectionHighlightColor" Value="{StaticResource BackgroundSecondary}" />
+                <Setter Property="SelectionHighlightColorWhenNotFocused" Value="blue" />
+
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="{StaticResource BackgroundSecondary}"/>
+                <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}"/>
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="Background" Value="{StaticResource BackgroundSecondary}"/>
+                <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}" />
+
+            </Style>
+            <Style TargetType="FlyoutPresenter">
+                <Setter Property="Background" Value="{StaticResource BackgroundSecondary}"/>
+                <Setter Property="Foreground" Value="{StaticResource TextFillColorPrimary}" />
+
+            </Style>
+
+
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Background" Value="{StaticResource TextFillColorPrimary}" />
+                <Setter Property="Foreground" Value="{StaticResource AppBackgroundBrush}" />
+                <Setter Property="Padding" Value="8" />
+            </Style>
+            
+
+        </ResourceDictionary>  
+
+   </Application.Resources>  
 </Application>

@@ -11,10 +11,14 @@ namespace Sapataria_Almeida.Models
         public int Id { get; set; }
         public DateTime DataAbertura { get; set; } = DateTime.Now;
         public string MetodoPagamento { get; set; } = string.Empty;
-        public float Sinal { get; set; }
+        public decimal Sinal { get; set; }
+        public DateTime DataFinal { get; set; } 
 
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; } = null!;
+        public decimal Total => Itens.Sum(i => i.Valor);
+        public string Estado { get; set; } = "Aberto";
+
 
         public ICollection<ItemConserto> Itens { get; set; } = new List<ItemConserto>();
     }

@@ -5,16 +5,226 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Sapataria_Almeida.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:vm="using:Sapataria_Almeida.ViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Language="pt-BR">
 
-    <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Cadastrar Venda" Click="AbrirCadastrarVenda_Click"/>
-            <Button Content="Cadastrar Conserto" Click="AbrirCadastrarConserto_Click"/>
-            <Button Content="Listar Consertos" Click="ListarConsertosPage_Click"/>
+    <NavigationView
+        PaneDisplayMode="Left"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        SelectionChanged="NavView_SelectionChanged">
 
-        </StackPanel>
-    </Grid>
+        <!-- Menu Lateral -->
+        <NavigationView.MenuItems>
+            <!-- Use SymbolIcon ou FontIcon, não strings -->
+            <NavigationViewItem Tag="CadastrarVenda">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="PostUpdate" />
+                </NavigationViewItem.Icon>
+                Cadastrar Venda
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="CadastrarConserto">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Repair" />
+                </NavigationViewItem.Icon>
+                Cadastrar Conserto
+            </NavigationViewItem>
+
+            <NavigationViewItemSeparator/>
+
+            <NavigationViewItem Tag="ConsertosAbertos">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Clock" />
+                </NavigationViewItem.Icon>
+                Consertos em aberto
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="ConsertosFinalizados">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+                Consertos finalizados
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="ConsertosRetirados">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Send" />
+                </NavigationViewItem.Icon>
+                Consertos retirados
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <!-- Conteúdo Principal -->
+        <NavigationView.Content>
+            <Grid Padding="16" RowSpacing="12" ColumnSpacing="12">
+                <!-- Define linhas e colunas -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Top: indicadores + calendário -->
+                    <RowDefinition Height="*"/>
+                    <!-- Bottom: alertas -->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <!-- Coluna 0: indicadores -->
+                    <ColumnDefinition Width="3*"/>
+                    <!-- Coluna 1: calendário -->
+                </Grid.ColumnDefinitions>
+
+                <!-- 1) Indicadores rápidos (topo, coluna 0) -->
+                <StackPanel Grid.Row="0" Grid.Column="0" Spacing="8">
+                    <!-- Cada Card pode ser um Border ou um UserControl pequeno -->
+                    <Border Background="{StaticResource TextFillColorPrimary}"
+                    CornerRadius="8" Padding="12">
+                        <StackPanel>
+                            <TextBlock  Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos em aberto" FontSize="14" />
+                            <TextBlock  Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosEmAndamento}" 
+                               FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{StaticResource TextFillColorPrimary}"
+                    CornerRadius="8" Padding="12">
+                        <StackPanel >
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Aguardando Orçamento" FontSize="14" />
+                            <TextBlock  Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosAguardandoOrcamento}" 
+                            FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="{StaticResource TextFillColorPrimary}" CornerRadius="8" Padding="12">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos finalizados" FontSize="14"/>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosFinalizados}"
+                            FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{StaticResource TextFillColorPrimary}" CornerRadius="8" Padding="12">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos atrasados" FontSize="14"/>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosAtrasados}"
+                            FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{StaticResource TextFillColorPrimary}" CornerRadius="8" Padding="12">
+                        <StackPanel>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Vencem hoje" FontSize="14"/>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosVencemHoje}"
+                            FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Adicione mais indicadores aqui -->
+
+
+                </StackPanel>
+
+                <!-- 2) Calendário/Agenda (topo, coluna 1) -->
+                <CalendarView Grid.Row="0" Grid.Column="1"
+                      SelectionMode="Single"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      CalendarViewDayItemChanging="CalendarView_DayItemChanging"/>
+
+                <!-- 3) Alertas (rodapé, ocupa as duas colunas) -->
+                <!--<ItemsRepeater Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+               ItemsSource="{Binding AlertasDoDia}" Margin="0,16,0,0">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="vm:NotificacaoViewModel">
+                            <Border Background="LightYellow"
+                    BorderBrush="DarkOrange"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="8"
+                    Margin="0,4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    //Ícone de alerta 
+                                    <SymbolIcon Grid.Column="0" Symbol="Important" Foreground="OrangeRed"/>
+
+                                    // Texto da mensagem 
+                                    <TextBlock Grid.Column="1"
+                               Foreground="OrangeRed"
+                               Text="{x:Bind Mensagem}"
+                               TextWrapping="WrapWholeWords"
+                               Margin="8,0"/>
+
+                                    //Botão de fechar 
+                                    <AppBarButton Grid.Column="2"
+                                  Icon="Cancel"
+                                  Label="Fechar"
+                                  Command="{x:Bind FecharCommand}"
+                                  Style="{StaticResource AppBarButtonRevealStyle}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater> -->
+
+
+                <!-- 3) Imagem ocupando todo o rodapé -->
+                <Grid
+    Grid.Row="1"
+    Grid.Column="0"
+    Grid.ColumnSpan="2"
+    Margin="0,16,0,0"
+   >
+
+                    <!-- A imagem de fundo -->
+                    <Image
+        Source="ms-appx:///Assets/Inicio.jpg"
+        Stretch="UniformToFill"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"/>
+
+                    <!-- Overlay preto semi‑transparente no canto inferior direito -->
+                    <Border
+        Background="#CC000000"         
+                        Padding="16"
+        CornerRadius="4"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Bottom"
+        Margin="16,16,16,16">
+                        <!-- afasta 16px das bordas -->
+
+                        <TextBlock
+            Text="Sapataria Almeida" 
+            Foreground="White"
+            FontSize="20"
+            FontFamily="Verdana"
+            FontWeight="SemiBold"/>
+    </Border>
+                </Grid>
+
+               <!--<TextBlock
+    Grid.Row="2"
+    Grid.Column="0"
+    Grid.ColumnSpan="2"
+    HorizontalAlignment="Right"
+    VerticalAlignment="Bottom"
+    Margin="0,4,8,0"
+    FontSize="12"
+    Foreground="Gray">
+    Desenvolvido por
+    <Hyperlink NavigateUri="https://github.com/PatrickCaminhas" Foreground="Gray">
+        Patrick Caminhas
+    </Hyperlink>
+</TextBlock>
+                -->
+
+
+
+            </Grid>
+            <!-- Texto com o hyperlink abaixo da imagem -->
+          <!-- Texto com hyperlink abaixo da imagem -->
+
+        </NavigationView.Content>
+
+    </NavigationView>
 </Page>

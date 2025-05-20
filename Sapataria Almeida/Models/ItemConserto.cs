@@ -13,6 +13,9 @@ namespace Sapataria_Almeida.Models
         public decimal Valor { get; set; }
         public string? Descricao { get; set; }
 
+        public string Estado { get; set; } = "Pendente";
+        public DateTime DataEntrega { get; set; }
+
         public int ConsertoId { get; set; }
         public Conserto Conserto { get; set; } = null!;
     }

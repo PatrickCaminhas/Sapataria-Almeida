@@ -1,47 +1,70 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Sapataria_Almeida.Data;           
+using Sapataria_Almeida.Repositories;   
+using Sapataria_Almeida.ViewModels;
+using Microsoft.UI.Xaml.Controls.Primitives;            
+                      
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace Sapataria_Almeida.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
             this.InitializeComponent();
+            var dbContext = new AppDbContext();               // configure conforme seu setup
+            var repositorio = new RepositorioDados(dbContext);
+
+            this.DataContext = new MainPageViewModel(repositorio);
+
         }
-        private void AbrirCadastrarVenda_Click(object sender, RoutedEventArgs e)
+
+        private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            this.Frame.Navigate(typeof(CadastrarVendaPage));
+            // Ignora o Settings, se estiver visível
+            if (args.IsSettingsSelected)
+                return;
+
+            if (args.SelectedItemContainer is NavigationViewItem item &&
+                item.Tag is string tag)
+            {
+                switch (tag)
+                {
+                    case "CadastrarVenda":
+                        Frame.Navigate(typeof(CadastrarVendaPage));
+                        break;
+                    case "CadastrarConserto":
+                        Frame.Navigate(typeof(CadastrarConsertoPage));
+                        break;
+                    case "ConsertosAbertos":
+                        Frame.Navigate(typeof(ListarConsertosPage));
+                        break;
+                    case "ConsertosFinalizados":
+                        Frame.Navigate(typeof(ListarConsertosFinalizadosPage));
+                        break;
+                   // case "ConsertosRetirados":
+                        // Implemente sua página de consertos retirados
+                     //   Frame.Navigate(typeof(ListarConsertosRetiradosPage));
+                       // break;
+                }
+            }
         }
-        private void AbrirCadastrarConserto_Click(object sender, RoutedEventArgs e)
+
+        // Handler para o evento DayItemChanging
+        private void CalendarView_DayItemChanging(
+           CalendarView sender,
+           CalendarViewDayItemChangingEventArgs args)
         {
-            this.Frame.Navigate(typeof(CadastrarConsertoPage));
-        }
-        private void ListarConsertosPage_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(ListarConsertosPage));
-        }
-        private void EditarItensConsertoPage_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(EditarItensConsertoPage));
+            // Aqui você pode, por exemplo, destacar dias com entregas:
+            // if (TemEntregaNoDia(args.Item.Date.Date))
+            // {
+            //     args.Item.Background = new SolidColorBrush(Colors.LightGreen);
+            // }
+            // Exemplo: destaque dias com entregas
+            // var dia = args.Item.Date.Date;
+            // if (TemEntregaNoDia(dia)) { … }
         }
     }
 }

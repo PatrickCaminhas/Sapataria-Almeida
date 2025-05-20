@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
+using Windows.Graphics;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -24,15 +27,29 @@ namespace Sapataria_Almeida
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private AppWindow appWindow;
+
         public MainWindow()
         {
             this.InitializeComponent();
+            // Recupera o AppWindow
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            var windowId = Win32Interop.GetWindowIdFromWindow(hwnd);
+            appWindow = AppWindow.GetFromWindowId(windowId);
+
+            // Define tamanho mínimo
+            var minSize = new SizeInt32 { Width = 1280, Height = 650 }; // largura x altura mínima
+            appWindow.SetPresenter(AppWindowPresenterKind.Overlapped);
+
+            var presenter = appWindow.Presenter as OverlappedPresenter;
+            presenter.SetBorderAndTitleBar(true, true);
+            presenter.IsResizable = true;
+
+            // Corrigido: Substituir SetPreferredMinSize por ResizeClient
+            appWindow.ResizeClient(minSize);
+            presenter.Maximize();
+
             MainFrame.Navigate(typeof(Views.MainPage));
         }
-
-
-
-   
-
     }
 }

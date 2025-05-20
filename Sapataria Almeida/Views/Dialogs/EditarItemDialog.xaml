@@ -8,7 +8,7 @@
     SecondaryButtonText="Cancelar"
     PrimaryButtonClick="OnSaveClick"  >
 
-    <Grid Width="550" Height="300">
+    <Grid Width="550" Height="400">
 
         <StackPanel Spacing="10" Padding="20">
             <!-- Mostra somente o Tipo (não editável) -->
@@ -22,13 +22,17 @@
             <TextBlock Text="Descrição:"/>
             <TextBox x:Name="DescricaoBox"
              Text="{Binding Descricao, Mode=OneTime}"
-             AcceptsReturn="True"
-                         TextWrapping="Wrap"
+             AcceptsReturn="True" TextWrapping="Wrap"
+             Height="150" ScrollViewer.VerticalScrollBarVisibility="Visible"  
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
 
-             Height="100"
-                     
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"  
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+
+            <TextBlock Text="Estado:"/>
+            <ComboBox x:Name="EstadoCombo"
+              SelectedItem="{Binding Estado, Mode=TwoWay}"
+              PlaceholderText="Selecione o estado">
+            </ComboBox>
+
         </StackPanel>
     </Grid>
 </ContentDialog>
