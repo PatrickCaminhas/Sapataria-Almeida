@@ -23,13 +23,27 @@
     </Page.Resources>
 
     <StackPanel Padding="20" Spacing="10">
-        <Button Content="⟵ Voltar"
+        <Button 
         Click="VoltarParaMainPage"
         HorizontalAlignment="Left"
-        Margin="0,0,0,10"/>
+        Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Undo" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
         <TextBlock Text="Ordens de Serviço de Conserto" FontSize="20" FontWeight="Bold"/>
-        <Button Content="Atualizar Lista"  
-           Command="{x:Bind ViewModel.LoadConsertosCommand}"/>
+        <Button 
+           Command="{x:Bind ViewModel.LoadConsertosCommand}">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Refresh" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Atualizar" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
 
         <StackPanel>
             <!-- Removed Grid.IsSharedSizeScope as it is not supported in UWP -->
@@ -76,11 +90,18 @@
                                     <TextBlock Text="{x:Bind Cliente.Nome}" Grid.Column="2" Foreground="#FFE6A7"/>
                                     <TextBlock Text="{x:Bind Estado}" Grid.Column="3" VerticalAlignment="Center"
                                     Foreground="{Binding Estado, Converter={StaticResource EstadoCorConverter}}" />
-                                    <Button Content="Editar Conserto"  
+                                    <Button 
                                        Grid.Column="4"  
                                        Click="OnEditarConsertoClick"
                                        HorizontalAlignment="Left"  
-                                       Tag="{x:Bind Id}"/>
+                                       Tag="{x:Bind Id}">
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <SymbolIcon Symbol="OpenLocal" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <TextBlock Text="Detalhes" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </StackPanel>
+                                    </Button>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -89,17 +110,32 @@
 
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <Button Content="⟨ Anterior"
+                <Button 
             Command="{x:Bind ViewModel.PaginaAnteriorCommand}" 
-            Margin="5"/>
+            Margin="5">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Back" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Anterior" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
                 <TextBlock Text="{x:Bind ViewModel.PaginaAtual, Mode=OneWay}" 
                VerticalAlignment="Center" FontWeight="Bold" Margin="10,0"/>
                 <TextBlock Text=" / " VerticalAlignment="Center"/>
                 <TextBlock Text="{x:Bind ViewModel.TotalPaginas, Mode=OneWay}" 
                VerticalAlignment="Center" Margin="5,0"/>
-                <Button Content="Próxima ⟩"
+                <Button 
             Command="{x:Bind ViewModel.ProximaPaginaCommand}" 
-            Margin="5"/>
+            Margin="5">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+
+                        <TextBlock Text="Proxima" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <SymbolIcon Symbol="Forward" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </StackPanel>
     </StackPanel>

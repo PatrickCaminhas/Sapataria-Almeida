@@ -40,5 +40,19 @@ namespace Sapataria_Almeida.Views
             Frame.Navigate(typeof(MainPage));
         }
 
+        private void RemoverItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Recupera o ItemVenda que veio no Tag  
+            var btn = (Button)sender;
+            if (btn.Tag is ItemVenda item)
+            {
+                // Remove da coleção ObservableCollection no ViewModel  
+                ViewModel.Carrinho.Remove(item);
+
+                // (Opcional) notifica mudança de disponibilidade de FinalizarCommand  
+                //ViewModel.FinalizarCommand.NotifyCanExecuteChanged();
+            }
+        }
+
     }
 }

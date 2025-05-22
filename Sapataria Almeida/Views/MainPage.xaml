@@ -80,7 +80,7 @@
                     <Border Background="{StaticResource TextFillColorPrimary}"
                     CornerRadius="8" Padding="12">
                         <StackPanel>
-                            <TextBlock  Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos em aberto" FontSize="14" />
+                            <TextBlock  Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos abertos" FontSize="14" />
                             <TextBlock  Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosEmAndamento}" 
                                FontSize="24" FontWeight="Bold"/>
                         </StackPanel>
@@ -96,7 +96,7 @@
 
                     <Border Background="{StaticResource TextFillColorPrimary}" CornerRadius="8" Padding="12">
                         <StackPanel>
-                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos finalizados" FontSize="14"/>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Esperando retirada" FontSize="14"/>
                             <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosFinalizados}"
                             FontSize="24" FontWeight="Bold"/>
                         </StackPanel>
@@ -110,7 +110,7 @@
                     </Border>
                     <Border Background="{StaticResource TextFillColorPrimary}" CornerRadius="8" Padding="12">
                         <StackPanel>
-                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Vencem hoje" FontSize="14"/>
+                            <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="Consertos que vencem hoje" FontSize="14"/>
                             <TextBlock Foreground="{StaticResource AppBackgroundBrush}" Text="{Binding ConsertosVencemHoje}"
                             FontSize="24" FontWeight="Bold"/>
                         </StackPanel>
@@ -121,11 +121,15 @@
                 </StackPanel>
 
                 <!-- 2) Calendário/Agenda (topo, coluna 1) -->
-                <CalendarView Grid.Row="0" Grid.Column="1"
-                      SelectionMode="Single"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch"
-                      CalendarViewDayItemChanging="CalendarView_DayItemChanging"/>
+                <CalendarView   x:Name="MeuCalendario"
+                                Grid.Row="0"
+                                Grid.Column="1" 
+                                SelectionMode="Single"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                CalendarViewDayItemChanging="CalendarView_DayItemChanging"
+                                SelectedDatesChanged="CalendarView_SelectedDatesChanged"/>
+
 
                 <!-- 3) Alertas (rodapé, ocupa as duas colunas) -->
                 <!--<ItemsRepeater Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
@@ -199,10 +203,10 @@
             FontSize="20"
             FontFamily="Verdana"
             FontWeight="SemiBold"/>
-    </Border>
+                    </Border>
                 </Grid>
 
-               <!--<TextBlock
+                <!--<TextBlock
     Grid.Row="2"
     Grid.Column="0"
     Grid.ColumnSpan="2"
@@ -222,7 +226,7 @@
 
             </Grid>
             <!-- Texto com o hyperlink abaixo da imagem -->
-          <!-- Texto com hyperlink abaixo da imagem -->
+            <!-- Texto com hyperlink abaixo da imagem -->
 
         </NavigationView.Content>
 

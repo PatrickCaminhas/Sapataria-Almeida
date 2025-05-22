@@ -19,7 +19,16 @@ namespace Sapataria_Almeida.ViewModels
         public ObservableCollection<Cliente> ClientesEncontrados { get; } = new();
         [ObservableProperty] private Cliente? _clienteSelecionado;
         [ObservableProperty] private string _nomeCliente = string.Empty;
+        partial void OnNomeClienteChanged(string value)
+        {
+            ClienteSelecionado = null;
+        }
         [ObservableProperty] private string _telefoneCliente = string.Empty;
+        partial void OnTelefoneClienteChanged(string value)
+        {
+            // limpa seleção anterior
+            ClienteSelecionado = null;
+        }
 
         // — INCLUSÃO DE ITEM DE CONSERTO —
         [ObservableProperty] private string _tipoConserto = string.Empty;
@@ -147,7 +156,7 @@ namespace Sapataria_Almeida.ViewModels
         private async Task OnFinalizarAsync()
         {
             Cliente cliente;
-            if (ClienteSelecionado != null)
+            if (ClienteSelecionado != null && ClienteSelecionado.Telefone == TelefoneCliente)
             {
                 cliente = ClienteSelecionado;
             }

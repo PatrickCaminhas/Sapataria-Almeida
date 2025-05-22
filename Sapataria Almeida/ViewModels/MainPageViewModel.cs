@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;    // para INotifyPropertyChanged
 using System.Linq;
@@ -52,11 +53,19 @@ namespace Sapataria_Almeida.ViewModels
 
         public ObservableCollection<NotificacaoViewModel> AlertasDoDia { get; }
          = new ObservableCollection<NotificacaoViewModel>();
-        
+
         private readonly IRepositorioDados _repositorio;
         // Construtor onde você carrega os valores reais
 
         private readonly AppDbContext _ctx;
+
+
+        private Dictionary<DateTime, List<Conserto>> _consertosPorDia = new();
+        public Dictionary<DateTime, List<Conserto>> ConsertosPorDia
+        {
+            get => _consertosPorDia;
+            private set { _consertosPorDia = value; OnPropertyChanged(); }
+        }
 
         public MainPageViewModel(IRepositorioDados repositorio)
         {
@@ -64,11 +73,11 @@ namespace Sapataria_Almeida.ViewModels
             _ctx = new AppDbContext();
 
             // Exemplo estático; troque pela sua lógica de leitura de banco
-            ConsertosEmAndamento = 8;
-            ConsertosAguardandoOrcamento = 3;
-            ConsertosFinalizados = 5;
-            ConsertosAtrasados = 2;
-            ConsertosVencemHoje = 1;
+            ConsertosEmAndamento = 98;
+            ConsertosAguardandoOrcamento = 93;
+            ConsertosFinalizados = 95;
+            ConsertosAtrasados = 92;
+            ConsertosVencemHoje = 99;
             // Carrega notificações não lidas do banco
             _ = CarregarAlertasAsync();
 
@@ -79,15 +88,30 @@ namespace Sapataria_Almeida.ViewModels
             var hoje = DateTime.Today;
 
             // Carrega todos os consertos
-            var consertos = await _ctx.Consertos.ToListAsync();
-
-            // 1) Finalizados
+            var consertos = await _ctx.Consertos
+                .Include(c => c.Cliente)
+                .ToListAsync();
+            // Consertos abertos
+            var estadosDesejados = new[] { "Em Aberto", "Em Andamento", "Aguardando Sinal" };
+            ConsertosEmAndamento = consertos.Count(c => estadosDesejados.Contains(c.Estado, StringComparer.OrdinalIgnoreCase));
+            //Consertos esperando orçamento
+            ConsertosAguardandoOrcamento = consertos.Count(c =>
+                string.Equals(c.Estado, "Em Orçamento", StringComparison.OrdinalIgnoreCase));
+            //Consertos Finalizados
             ConsertosFinalizados = consertos.Count(c =>
                 string.Equals(c.Estado, "Finalizado", StringComparison.OrdinalIgnoreCase));
-
-            // 2) Atrasados e vencendo hoje
-            ConsertosAtrasados = consertos.Count(c => c.DataFinal.Date < hoje);
-            ConsertosVencemHoje = consertos.Count(c => c.DataFinal.Date == hoje);
+            //Consertos atrasados (e estejam abertos)
+            ConsertosAtrasados = consertos.Count(c => c.DataFinal.Date < hoje &&
+            !string.Equals(c.Estado, "Finalizado", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(c.Estado, "Retirado", StringComparison.OrdinalIgnoreCase));
+            //Consertos vencendo hoje (e estejam abertos)
+            ConsertosVencemHoje = consertos.Count(c => c.DataFinal.Date == hoje &&
+            !string.Equals(c.Estado, "Finalizado", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(c.Estado, "Retirado", StringComparison.OrdinalIgnoreCase));
+            //Consertos por dia
+            ConsertosPorDia = consertos.Where(c => !string.Equals(c.Estado, "Finalizado", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(c.Estado, "Retirado", StringComparison.OrdinalIgnoreCase)).
+            GroupBy(c => c.DataFinal.Date).ToDictionary(g => g.Key, g => g.ToList());
         }
 
 

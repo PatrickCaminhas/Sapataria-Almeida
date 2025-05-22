@@ -18,7 +18,14 @@
     </Page.Resources>
 
     <StackPanel Padding="20" Spacing="10">
-        <Button Content="⟵ Voltar" Click="VoltarParaListagem" HorizontalAlignment="Left"/>
+        <Button  Click="VoltarParaListagem" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Undo" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
 
         <TextBlock Text="Ordem de Conserto" FontSize="20" FontWeight="Bold"/>
 
@@ -60,18 +67,39 @@
 
 
         <!-- Novo botão -->
-        <Button Content="💬 Gerar Texto para Whatsapp"
+        <Button 
         Click="OnGerarTextoClick"
         HorizontalAlignment="Left"
-        Margin="0,0,0,0"/>
-        <Button Content="⚙️Alterar Informações do Serviço"
+        Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="CellPhone" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="Green"/>
+                <TextBlock Text="Gerar Texto para Whatsapp" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
+        <Button 
         Click="OnAlterarConsertoClick"
         HorizontalAlignment="Left"
-        Margin="0,5,0,0"/>
-        <Button Content="⚙️Imprimir Ordem de Serviço"
+        Margin="0,5,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
+                <TextBlock Text="Alterar Informações do Serviço" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
+        <Button 
         Click="OnGerarImprimirClick"
         HorizontalAlignment="Left"
-        Margin="0,5,0,0"/>
+        Margin="0,5,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Print" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Imprimir Ordem de Serviço" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
         <!--<Button Content="✔️Finalizar Ordem de Serviço"
         Click="OnGerarImprimirClick"
         HorizontalAlignment="Left"
@@ -80,45 +108,64 @@
 
 
         <TextBlock Text="Itens de Conserto:" FontWeight="Bold" Margin="0,10,0,0"/>
-        <ListView ItemsSource="{Binding Itens}" IsItemClickEnabled="False"> 
+
+        <ListView ItemsSource="{Binding Itens}" IsItemClickEnabled="False" >
             <ListView.ItemTemplate>
                 <!-- sem x:Bind aqui, usamos Binding puro -->
                 <DataTemplate>
-                    <Grid Padding="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                    <Border BorderBrush="{StaticResource BackgroundSecondary}" BorderThickness="1" Margin="3" CornerRadius="5">
 
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <Grid Padding="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
 
-                        <!-- TipoConserto -->
-                        <TextBlock
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- TipoConserto -->
+                            <TextBlock
                         Text="{Binding TipoConserto}"
                         Grid.Column="0"
                         VerticalAlignment="Center"/>
 
-                        <TextBlock
+                            <TextBlock
                         Text="{Binding Estado}"
                         Grid.Column="1"
                         VerticalAlignment="Center"/>
 
-                        <Button
-                         Content="Mensagem do estado do produto"
+                            <Button
+                        
                          Grid.Column="2"
                          Margin="10,0,0,0"
                          Tag="{Binding}"         
-                         Click="OnGerarEstadoTexto_Click"/>
+                         Click="OnGerarEstadoTexto_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <SymbolIcon Symbol="Message" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                    <TextBlock Text="Mensagem do estado do produto" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </StackPanel>
+                            </Button>
 
-                        <!-- Botão Editar -->
-                        <Button
-                          Content="Editar"
+                            <!-- Botão Editar -->
+                            <Button
+                         
                           Grid.Column="3"
                           Margin="10,0,0,0"
                           Tag="{Binding}"         
-                        Click="EditItem_Click"/>
-                    </Grid>
+                        Click="EditItem_Click">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
+                                    <TextBlock Text="Atualizar conserto" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </StackPanel>
+                            </Button>
+
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

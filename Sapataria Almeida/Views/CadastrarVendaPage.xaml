@@ -27,57 +27,93 @@
 
         <!-- Painel Esquerdo -->
         <StackPanel Grid.Column="0" Margin="20" Spacing="15">
-            <Button Content="⟵ Voltar"
-        Click="VoltarParaMainPage"
-        HorizontalAlignment="Left"
-        Margin="0,0,0,10"/>
 
-            <TextBlock Text="Tipo de Produto:" FontWeight="Bold"/>
-            <ComboBox 
+                <Button Click="VoltarParaMainPage"
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,10">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Undo" Style="{Binding Foreground,
+                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground,
+                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            <StackPanel BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10" Spacing="10">
+
+                <TextBlock Text="Tipo de Produto:" FontWeight="Bold"/>
+                <ComboBox 
                 ItemsSource="{x:Bind ViewModel.TiposProdutos}"
                 SelectedItem="{x:Bind ViewModel.TipoProduto, Mode=TwoWay}"
                 PlaceholderText="Selecione o produto"/>
 
-            <TextBlock Text="Valor:" FontWeight="Bold"/>
-            <TextBox 
+                <TextBlock Text="Valor:" FontWeight="Bold"/>
+                <TextBox 
                 Text="{x:Bind ViewModel.Valor, Mode=TwoWay}"
                 PlaceholderText="Digite o valor"
-                InputScope="Number"/>
+                InputScope="Number"  Width="200"
+                HorizontalAlignment="Left"/>
 
-            <Button 
-                Content="Adicionar à Lista"
+                <Button 
                 Command="{x:Bind ViewModel.AdicionarItemCommand}"
-                Margin="0,20" HorizontalAlignment="Stretch"/>
+                Margin="0,10,0,0">
+
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="ADD" Style="{Binding Foreground,
+                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Adicionar" VerticalAlignment="Center" Style="{Binding Foreground,
+                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </StackPanel>
 
         <!-- Painel Direito -->
         <StackPanel Grid.Column="1" Margin="20" Spacing="15">
-            <TextBlock Text="Carrinho de Compras:" FontWeight="Bold" FontSize="16"/>
+            <StackPanel BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10" Spacing="15">
 
-            <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" Height="400">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="models:ItemVenda">
-                        <StackPanel Orientation="Horizontal" Spacing="20" Padding="10">
-                            <TextBlock Text="{x:Bind TipoProduto}" Width="200"/>
-                            <TextBlock Text="{x:Bind Valor, Converter={StaticResource CurrencyConverter}}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <TextBlock Text="Carrinho de Compras:" FontWeight="Bold" FontSize="16"/>
+                <Border BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10">
 
-            <StackPanel Spacing="10" Margin="0,20">
-                <TextBlock Text="Método de Pagamento:" FontWeight="Bold"/>
-                <ComboBox
+                    <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" Height="400">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ItemVenda">
+                                <StackPanel Orientation="Horizontal" Spacing="20" Padding="10">
+                                    <TextBlock Text="{x:Bind TipoProduto}" Width="200"/>
+                                    <TextBlock Text="{x:Bind Valor, Converter={StaticResource CurrencyConverter}}"/>
+                                    <Button  ToolTipService.ToolTip="Remover item"
+                            Margin="10,0,0,0" Padding="6" 
+                            Click="RemoverItem_Click" Tag="{x:Bind}">
+                                        <StackPanel Orientation="Horizontal" Spacing="5">
+                                            <SymbolIcon Symbol="Delete" Style="{Binding Foreground,
+                                    RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+                <StackPanel Spacing="10" Margin="0,20">
+                    <TextBlock Text="Método de Pagamento:" FontWeight="Bold"/>
+                    <ComboBox
                     ItemsSource="{x:Bind ViewModel.MetodosPagamento}"
                     SelectedItem="{x:Bind ViewModel.MetodoPagamento, Mode=TwoWay}"
                     PlaceholderText="Selecione o método"/>
 
-                <Button 
-                    Content="Finalizar Venda"
+                    <Button 
                     Command="{x:Bind ViewModel.FinalizarVendaCommand}"
                     HorizontalAlignment="Stretch" 
                     Padding="15,10"
-                    FontWeight="Bold"/>
+                    FontWeight="Bold">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <SymbolIcon Symbol="Shop" Style="{Binding Foreground,
+                        RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <TextBlock Text="Finalizar" VerticalAlignment="Center" Style="{Binding Foreground,
+                        RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

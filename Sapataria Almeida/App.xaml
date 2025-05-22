@@ -75,7 +75,7 @@
                 <Setter Property="Foreground" Value="{StaticResource AppBackgroundBrush}" />
                 <Setter Property="Padding" Value="8" />
             </Style>
-            
+
 
         </ResourceDictionary>  
 
