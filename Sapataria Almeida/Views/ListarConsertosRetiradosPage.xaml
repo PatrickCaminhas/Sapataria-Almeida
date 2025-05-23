@@ -1,5 +1,5 @@
 <Page  
-  x:Class="Sapataria_Almeida.Views.ListarConsertosFinalizadosPage"  
+  x:Class="Sapataria_Almeida.Views.ListarConsertosRetiradosPage"  
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
@@ -13,7 +13,7 @@
 
     <!-- define o ViewModel e dá um nome para binding -->
     <Page.DataContext>
-        <vm:ListarConsertosFinalizadosViewModel/>
+        <vm:ListarConsertosRetiradosViewModel/>
     </Page.DataContext>
 
     <Page.Resources>
@@ -33,7 +33,7 @@ RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </StackPanel>
         </Button>
-        <TextBlock Text="Ordens de Serviço de Conserto" FontSize="20" FontWeight="Bold"/>
+        <TextBlock Text="Ordens de Serviço de Conserto Retirados" FontSize="20" FontWeight="Bold"/>
         <Button 
           >
             <StackPanel Orientation="Horizontal" Spacing="5">
@@ -91,7 +91,7 @@ RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                     <TextBlock Text="{x:Bind Estado}" Grid.Column="3" VerticalAlignment="Center" Foreground="#FFE6A7"/>
                                     <Button 
                                        Grid.Column="4"  
-                                       Click="OnEditarConsertoFinalizadoClick"
+                                       Click="OnEditarConsertoRetiradoClick"
                                        HorizontalAlignment="Left"  
                                        Tag="{x:Bind Id}">
                                         <StackPanel Orientation="Horizontal" Spacing="5">

@@ -41,7 +41,7 @@ namespace Sapataria_Almeida.Views.Dialogs
             EstadoCombo.ItemsSource = opcoes;
             EstadoCombo.SelectedItem = Conserto.Estado;
 
-            if (Conserto.Estado == "Finalizado")
+            if (Conserto.Estado == "Finalizado" || Conserto.Estado == "Retirado")
             {
                 DataFinalPicker.IsEnabled = false;
                 SinalBox.IsEnabled = false;

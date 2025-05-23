@@ -51,15 +51,25 @@ namespace Sapataria_Almeida.Migrations
                     b.Property<DateTime>("DataFinal")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DataRetirada")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Estado")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MetodoPagamento")
+                    b.Property<string>("MetodoPagamentoFinal")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MetodoPagamentoSinal")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Sinal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ValorPagamento")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -123,6 +133,27 @@ namespace Sapataria_Almeida.Migrations
                     b.HasIndex("VendaId");
 
                     b.ToTable("ItensVenda");
+                });
+
+            modelBuilder.Entity("Sapataria_Almeida.Models.Notificacao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Lida")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Mensagem")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notificacoes");
                 });
 
             modelBuilder.Entity("Sapataria_Almeida.Models.Venda", b =>

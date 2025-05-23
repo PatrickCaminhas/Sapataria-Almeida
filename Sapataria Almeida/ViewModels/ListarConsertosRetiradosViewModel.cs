@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 namespace Sapataria_Almeida.ViewModels
 {
     // Tem que ser public e ter um construtor público sem parâmetros
-    public partial class ListarConsertosViewModel : ObservableObject
+    public partial class ListarConsertosRetiradosViewModel : ObservableObject
     {
         private readonly AppDbContext _db = new AppDbContext();
 
         private int _paginaAtual = 1;
-        private int _tamanhoPagina = 5;
+        private int _tamanhoPagina = 10;
         private List<Conserto> _todosConsertos = new();
 
         public ObservableCollection<Conserto> Consertos { get; } = new();
-        public IAsyncRelayCommand LoadConsertosCommand { get; }
+        public IAsyncRelayCommand LoadConsertosRetiradosCommand { get; }
 
 
         public int PaginaAtual
@@ -35,16 +35,16 @@ namespace Sapataria_Almeida.ViewModels
         public IRelayCommand ProximaPaginaCommand { get; }
         public IRelayCommand PaginaAnteriorCommand { get; }
 
-        public ListarConsertosViewModel()
+        public ListarConsertosRetiradosViewModel()
         {
-            LoadConsertosCommand = new AsyncRelayCommand(LoadConsertosAsync);
+            LoadConsertosRetiradosCommand = new AsyncRelayCommand(LoadConsertosAsync);
             ProximaPaginaCommand = new RelayCommand(ProximaPagina, PodeIrParaProximaPagina);
             PaginaAnteriorCommand = new RelayCommand(PaginaAnterior, PodeIrParaPaginaAnterior);
         }
 
         private async Task LoadConsertosAsync()
         {
-            var lista = await _db.Consertos.Include(c => c.Cliente).Where(c => c.Estado != "Finalizado" && c.Estado != "Retirado").ToListAsync();
+            var lista = await _db.Consertos.Include(c => c.Cliente).Where(c => c.Estado == "Retirado").ToListAsync();
             _todosConsertos = lista.OrderByDescending(c => c.DataAbertura).ToList();
             PaginaAtual = 1;
             AtualizarPagina();

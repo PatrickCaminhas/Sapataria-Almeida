@@ -38,9 +38,15 @@ namespace Sapataria_Almeida.Views.Dialogs
             EstadoCombo.SelectedItem = Item.Estado;
 
             // 6) Se já estiver finalizado, desabilita totalmente a edição e oferece opção de entreuge
-            if (Item.Estado == "Finalizado") {
+            if (Item.Estado == "Finalizado" ) {
                 opcoes.Add("Em conserto");
-                opcoes.Add("Entregue");
+                opcoes.Add("Retirado");
+                DescricaoBox.IsEnabled = false;
+                ValorBox.IsEnabled = false;
+            }
+            if (Item.Estado == "Retirado")
+            {
+                opcoes.Add("Em conserto");
                 DescricaoBox.IsEnabled = false;
                 ValorBox.IsEnabled = false;
             }

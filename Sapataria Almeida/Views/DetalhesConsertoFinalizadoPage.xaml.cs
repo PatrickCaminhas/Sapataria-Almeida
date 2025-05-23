@@ -23,12 +23,12 @@ using System.Linq;
 
 namespace Sapataria_Almeida.Views
 {
-    public sealed partial class DetalhesConsertoPage : Page
+    public sealed partial class DetalhesConsertoFinalizadoPage : Page
     {
         private readonly DetalhesConsertoViewModel ViewModel;
 
 
-        public DetalhesConsertoPage()
+        public DetalhesConsertoFinalizadoPage()
         {
             this.InitializeComponent();
             ViewModel = new DetalhesConsertoViewModel();
@@ -69,22 +69,21 @@ namespace Sapataria_Almeida.Views
                     await ViewModel.SaveChangesAsync();
                     // então atualiza o total na tela
                     ViewModel.RefreshItem(item);
-                    if (item.Estado == "Orçamento")
-                    {
-                        ViewModel.Conserto.Estado = "Esperando orçamento";
-                        item.Valor = 0;
-
-                        await ViewModel.SaveChangesAsync();
-                        ViewModel.RefreshConserto();
-                    }
-                    bool nenhumOrcamento = ViewModel.Itens.Any(i => i.Estado == "Orçamento");
-                    if(!nenhumOrcamento && item.Estado== "Em conserto")
+                    bool temItemEmOrcamento = ViewModel.Conserto.Itens.Any(item => item.Estado == "Orçamento");
+                    if (item.Estado == "Em conserto" && ViewModel.Conserto.Estado == "Finalizado" && !temItemEmOrcamento)
                     {
                         ViewModel.Conserto.Estado = "Em Andamento";
                         await ViewModel.SaveChangesAsync();
                         ViewModel.RefreshConserto();
                     }
-                    await VerificarSeEstadosSaoFinalizadosAsync();
+                    //bool todosItemsForamRetirados = ViewModel.Conserto.Itens.All(item => item.Estado == "Retirado");
+                    //if(item.Estado == "Retirado" && todosItemsForamRetirados)
+                    //{
+                    //    ViewModel.Conserto.Estado = "Retirado";
+                    //    await ViewModel.SaveChangesAsync();
+                    //    ViewModel.RefreshConserto();
+                    //}
+                        await VerificarSeEstadosSaoFinalizadosAsync();
 
                     ViewModel.RefreshTotal();
 
@@ -112,6 +111,24 @@ namespace Sapataria_Almeida.Views
         private async void OnAlterarConsertoClick(object sender, RoutedEventArgs e)
         {
             var dialog = new EditarConsertoDialog(ViewModel.Conserto)
+            {
+                XamlRoot = this.XamlRoot
+            };
+
+            var result = await dialog.ShowAsync().AsTask();
+            if (result == ContentDialogResult.Primary)
+            {
+                // Persiste no banco
+                await ViewModel.SaveChangesAsync();
+
+                // Atualiza UI (notifique propriedades ou recarregue o Conserto)
+                ViewModel.RefreshConserto();
+            }
+        }
+
+        private async void OnFinalizarConsertoClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new RetirarProdutosDialog(ViewModel.Conserto)
             {
                 XamlRoot = this.XamlRoot
             };

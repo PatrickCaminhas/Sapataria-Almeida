@@ -55,6 +55,15 @@
                 </NavigationViewItem.Icon>
                 Consertos retirados
             </NavigationViewItem>
+            
+            <NavigationViewItemSeparator/>
+
+            <NavigationViewItem Tag="Dashboard">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard
+            </NavigationViewItem>
         </NavigationView.MenuItems>
 
         <!-- Conteúdo Principal -->

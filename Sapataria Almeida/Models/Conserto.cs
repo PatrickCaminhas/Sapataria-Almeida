@@ -10,7 +10,8 @@ namespace Sapataria_Almeida.Models
     {
         public int Id { get; set; }
         public DateTime DataAbertura { get; set; } = DateTime.Now;
-        public string MetodoPagamento { get; set; } = string.Empty;
+        public string MetodoPagamentoSinal { get; set; } = string.Empty;
+        public string MetodoPagamentoFinal { get; set; } = string.Empty;
         public decimal Sinal { get; set; }
         public DateTime DataFinal { get; set; } 
 
@@ -18,6 +19,10 @@ namespace Sapataria_Almeida.Models
         public Cliente Cliente { get; set; } = null!;
         public decimal Total => Itens.Sum(i => i.Valor);
         public string Estado { get; set; } = "Aberto";
+
+        public decimal ValorPagamento { get; set; }
+
+        public DateTime DataRetirada { get; set; }
 
 
         public ICollection<ItemConserto> Itens { get; set; } = new List<ItemConserto>();

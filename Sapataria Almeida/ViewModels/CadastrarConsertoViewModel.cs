@@ -38,7 +38,7 @@ namespace Sapataria_Almeida.ViewModels
 
         // — PAGAMENTO E SINAL —
         public ObservableCollection<string> MetodosPagamento { get; } = new(
-            new[] { "Dinheiro", "Pix", "Cartão" });
+            new[] { "Dinheiro", "Pix", "Cartão de credito", "Cartão de Debito", "Cheque" });
         [ObservableProperty] private string _metodoPagamento = string.Empty;
         [ObservableProperty] private string _sinal = string.Empty;
 
@@ -198,7 +198,7 @@ namespace Sapataria_Almeida.ViewModels
             var conserto = new Conserto
             {
                 ClienteId = cliente.Id,
-                MetodoPagamento = MetodoPagamento,
+                MetodoPagamentoSinal = MetodoPagamento,
                 Sinal = valorSinal, // Changed from 0f to 0m
                 Estado = estado,
                 DataFinal = dataFinal,

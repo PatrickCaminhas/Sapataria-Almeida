@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
@@ -64,6 +64,12 @@
     <Page Update="Views\CadastrarConsertoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Update="Views\DetalhesConsertoRetiradoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ListarConsertosRetiradosPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\ListarConsertosFinalizadosPage .xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -89,6 +95,16 @@
     <Content Update="Assets\PaginaInicial2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DashboardPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\RetirarProdutosDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dialogs\EditarConsertoDialog.xaml">

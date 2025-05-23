@@ -5,11 +5,11 @@ using Sapataria_Almeida.ViewModels;
 
 namespace Sapataria_Almeida.Views
 {
-    public sealed partial class ListarConsertosFinalizadosPage : Page
+    public sealed partial class ListarConsertosRetiradosPage : Page
     {
-        public ListarConsertosFinalizadosViewModel ViewModel => (ListarConsertosFinalizadosViewModel)DataContext;
+        public ListarConsertosRetiradosViewModel ViewModel => (ListarConsertosRetiradosViewModel)DataContext;
 
-        public ListarConsertosFinalizadosPage()
+        public ListarConsertosRetiradosPage()
         {
             InitializeComponent();
         }
@@ -17,13 +17,13 @@ namespace Sapataria_Almeida.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            await ViewModel.LoadConsertosFinalizadosCommand.ExecuteAsync(null);
+            await ViewModel.LoadConsertosRetiradosCommand.ExecuteAsync(null);
         }
 
-        private void OnEditarConsertoFinalizadoClick(object sender, RoutedEventArgs e)
+        private void OnEditarConsertoRetiradoClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.Tag is int id)
-                Frame.Navigate(typeof(DetalhesConsertoFinalizadoPage), id);
+                Frame.Navigate(typeof(DetalhesConsertoRetiradoPage), id);
         }
 
         private void VoltarParaMainPage(object sender, RoutedEventArgs e)
