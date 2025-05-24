@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Sapataria_Almeida.Views.DashboardPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,9 +5,89 @@
     xmlns:local="using:Sapataria_Almeida.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
+    xmlns:viewmodels="using:Sapataria_Almeida.ViewModels"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.DataContext>
+        <viewmodels:DashboardViewModel />
+    </Page.DataContext>
 
+    <Grid Margin="20" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button  
+           Click="VoltarParaMainPage"  
+           HorizontalAlignment="Left"  
+           Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Undo" Style="{Binding Foreground,
+            RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground,
+            RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
+
+        <Grid Grid.Row="1" Background="{StaticResource ButtonBackground}" CornerRadius="10">
+            <TextBlock Text="Arrecadação do mês atual" 
+           FontSize="18" 
+           FontWeight="Bold" 
+           Foreground="Black"
+           Margin="10,0,0,10"
+           HorizontalAlignment="Center"
+             />
+            <lvc:CartesianChart
+                Series="{Binding MonthlySeries}"
+                XAxes="{Binding MonthlyXAxes}"
+                YAxes="{Binding MonthlyYAxes}"
+                LegendPosition="Hidden"
+                Background="Black"
+                Foreground="Green">
+            </lvc:CartesianChart>
+        </Grid>
+        <Grid Grid.Row="2" >
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="{StaticResource ButtonBackground}" CornerRadius="10" Grid.Column="0">
+                    <TextBlock Text="Arrecadação da semana atual" 
+                    FontSize="18" 
+                    FontWeight="Bold" 
+                    Foreground="Black"
+                    Margin="10,0,0,10"
+                    HorizontalAlignment="Center"/>
+                    <lvc:CartesianChart 
+                Series="{Binding WeeklySeries}"
+                XAxes="{Binding WeeklyXAxes}"
+                YAxes="{Binding WeeklyYAxes}"
+                LegendPosition="Hidden"
+                Background="Black"
+                Foreground="Green">
+                    </lvc:CartesianChart>
+                </Grid>
+                <Grid Background="{StaticResource ButtonBackground}" CornerRadius="10"  Grid.Column="1">
+                    <TextBlock Text="Arrecadação TESTE" 
+                    FontSize="18" 
+                    FontWeight="Bold" 
+                    Foreground="Black"
+                    Margin="10,0,0,10"
+                    HorizontalAlignment="Center"/>
+                    <lvc:CartesianChart 
+                Series="{Binding WeeklySeries}"
+                XAxes="{Binding WeeklyXAxes}"
+                YAxes="{Binding WeeklyYAxes}"
+                LegendPosition="Hidden"
+                Background="Black"
+                Foreground="Green">
+                    </lvc:CartesianChart>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
