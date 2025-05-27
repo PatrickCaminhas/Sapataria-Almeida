@@ -58,11 +58,17 @@
             
             <NavigationViewItemSeparator/>
 
-            <NavigationViewItem Tag="Dashboard">
+            <NavigationViewItem Tag="DashboardTempo">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="FourBars" />
                 </NavigationViewItem.Icon>
-                Dashboard
+                Dashboard Tempo
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardPagamento">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Pagamento
             </NavigationViewItem>
         </NavigationView.MenuItems>
 

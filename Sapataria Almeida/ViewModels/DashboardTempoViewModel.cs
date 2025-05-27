@@ -18,19 +18,9 @@ using System.Threading.Tasks;
 
 namespace Sapataria_Almeida.ViewModels
 {
-    public partial class DashboardViewModel : ObservableObject
+    public partial class DashboardTempoViewModel : ObservableObject
     {
         private readonly AppDbContext _db = new AppDbContext();
-
-        // Arrecadação Mensal
-        [ObservableProperty]
-        private ObservableCollection<ISeries> _monthlySeries = new();
-
-        [ObservableProperty]
-        private Axis[] _monthlyXAxes = Array.Empty<Axis>();
-
-        [ObservableProperty]
-        private Axis[] _monthlyYAxes = Array.Empty<Axis>();
         // Arrecadação Semanal
         [ObservableProperty]
         private ObservableCollection<ISeries> _weeklySeries = new();
@@ -41,15 +31,39 @@ namespace Sapataria_Almeida.ViewModels
         [ObservableProperty]
         private Axis[] _weeklyYAxes = Array.Empty<Axis>();
 
-        public DashboardViewModel()
+        // Arrecadação Mensal
+        [ObservableProperty]
+        private ObservableCollection<ISeries> _monthlySeries = new();
+
+        [ObservableProperty]
+        private Axis[] _monthlyXAxes = Array.Empty<Axis>();
+
+        [ObservableProperty]
+        private Axis[] _monthlyYAxes = Array.Empty<Axis>();
+        // Arrecadação Anual
+        [ObservableProperty]
+        private ObservableCollection<ISeries> _annualSeries = new();
+
+        [ObservableProperty]
+        private Axis[] _annualXAxes = Array.Empty<Axis>();
+
+        [ObservableProperty]
+        private Axis[] _annualYAxes = Array.Empty<Axis>();
+
+   
+
+        public DashboardTempoViewModel()
         {
             // Dispara carregamento assíncrono sem bloquear a UI
-           
+
 
             _ = LoadArrecadacaoSemanalAsync();
             _ = LoadArrecadacaoMensalAsync();
+            _ = LoadArrecadacaoAnuallAsync(); 
+
         }
 
+        //SEMANAL
         private async Task LoadArrecadacaoSemanalAsync()
         {
             // 1. Determinar a semana atual (segunda a domingo)
@@ -92,7 +106,7 @@ namespace Sapataria_Almeida.ViewModels
                     Values = new ObservableCollection<decimal>(arrecadacao),
                     Fill = new SolidColorPaint(SKColors.Green),
                     DataLabelsPaint = new SolidColorPaint(SKColors.Black),
-                    
+
                     DataLabelsPosition = DataLabelsPosition.Top,
                     DataLabelsFormatter = point => ((ChartPoint<decimal, RoundedRectangleGeometry, LabelGeometry>)point).Model.ToString("C2", new CultureInfo("pt-BR"))
                 }
@@ -126,6 +140,7 @@ namespace Sapataria_Almeida.ViewModels
             };
         }
 
+        //MENSAL
 
         private async Task LoadArrecadacaoMensalAsync()
         {
@@ -157,46 +172,133 @@ namespace Sapataria_Almeida.ViewModels
                 .ToArray();
 
             MonthlySeries = new ObservableCollection<ISeries>
-    {
-        new ColumnSeries<decimal>
-        {
-            Name = "Arrecadação do Mês (R$)",
-            Values = new ObservableCollection<decimal>(arrecadacao),
-            Fill = new SolidColorPaint(SKColors.Green),
-            DataLabelsPaint = new SolidColorPaint(SKColors.Black),
-            DataLabelsPosition = DataLabelsPosition.Top,
-            DataLabelsFormatter = point => ((ChartPoint<decimal, RoundedRectangleGeometry, LabelGeometry>)point).Model.ToString("N2", new CultureInfo("pt-BR"))
-        }
-    };
+            {
+                new ColumnSeries<decimal>
+                {
+                    Name = "Arrecadação do Mês (R$)",
+                    Values = new ObservableCollection<decimal>(arrecadacao),
+                    Fill = new SolidColorPaint(SKColors.Green),
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsPosition = DataLabelsPosition.Top,
+                    DataLabelsFormatter = point => ((ChartPoint<decimal, RoundedRectangleGeometry, LabelGeometry>)point).Model.ToString("N2", new CultureInfo("pt-BR"))
+                }
+            };
 
             MonthlyXAxes = new[]
             {
-        new Axis
-        {
-            Name = "Dia do Mês",
-            Labels = labels,
-            TextSize = 12,
-            LabelsPaint = new SolidColorPaint(SKColors.Black),
-            NamePaint = new SolidColorPaint(SKColors.Black)
-        }
-    };
+                new Axis
+                {
+                    Name = "Dia do Mês",
+                    Labels = labels,
+                    TextSize = 12,
+                    LabelsPaint = new SolidColorPaint(SKColors.Black),
+                    NamePaint = new SolidColorPaint(SKColors.Black)
+                }
+            };
 
             MonthlyYAxes = new[]
             {
-        new Axis
+                new Axis
+                {
+                    Name = "Valor Arrecadado (R$)",
+                    Labeler = val => val.ToString("C0", new CultureInfo("pt-BR")),
+                    MinLimit = 0,
+                    TextSize = 12,
+                    LabelsPaint = new SolidColorPaint(SKColors.Black),
+                    SeparatorsPaint = new SolidColorPaint(SKColors.Black),
+                    NamePaint = new SolidColorPaint(SKColors.Black)
+                }
+            };
+        }
+
+
+        // ANUAL
+
+        private async Task LoadArrecadacaoAnuallAsync()
         {
-            Name = "Valor Arrecadado (R$)",
-            Labeler = val => val.ToString("C0", new CultureInfo("pt-BR")),
-            MinLimit = 0,
-            TextSize = 12,
-            LabelsPaint = new SolidColorPaint(SKColors.Black),
-            SeparatorsPaint = new SolidColorPaint(SKColors.Black),
-            NamePaint = new SolidColorPaint(SKColors.Black)
-        }
-    };
-        }
+            var today = DateTime.Today;
+            var inicioAno = new DateTime(today.Year, 1, 1);
+            var fimAno = new DateTime(today.Year, 12, 31);
 
+            // 1. Buscar todos os consertos do ano
+            var consertos = await _db.Consertos
+               .AsNoTracking()
+               .Where(c => (c.DataAbertura >= inicioAno && c.DataAbertura <= fimAno)
+                        || (c.DataRetirada != null && c.DataRetirada >= inicioAno && c.DataRetirada <= fimAno))
+               .ToListAsync();
 
+            // 2. Para cada mês, calcule arrecadação no intervalo [início,fim] do mês
+            var meses = Enumerable.Range(1, 12)
+                .Select(m => new {
+                    Inicio = new DateTime(today.Year, m, 1),
+                    Fim = new DateTime(today.Year, m, DateTime.DaysInMonth(today.Year, m))
+                })
+                .ToList();
+
+            // 3. Labels com abreviações de mês
+            var labels = meses
+                .Select(m => m.Inicio.ToString("MMM", new CultureInfo("pt-BR")))
+                .ToArray();
+
+            // 4. Soma de sinal + pagamento em cada mês
+            var arrecadacao = meses
+                .Select(m =>
+                    consertos
+                      .Where(c => c.DataAbertura.Date >= m.Inicio && c.DataAbertura.Date <= m.Fim)
+                      .Sum(c => c.Sinal)
+                  + consertos
+                      .Where(c => c.DataRetirada != null
+                               && c.DataRetirada.Date >= m.Inicio
+                               && c.DataRetirada.Date <= m.Fim
+                               && c.ValorPagamento > 0)
+                      .Sum(c => c.ValorPagamento)
+                )
+                .Select(total => (decimal)total)
+                .ToArray();
+
+            // 5. Preencher propriedades para o gráfico
+            AnnualSeries = new ObservableCollection<ISeries>
+            {
+                new ColumnSeries<decimal>
+                {
+                    Name = "Arrecadação do Ano (R$)",
+                    Values = new ObservableCollection<decimal>(arrecadacao),
+                    Fill = new SolidColorPaint(SKColors.Green),
+                    DataLabelsPaint = new SolidColorPaint(SKColors.Black),
+                    DataLabelsPosition = DataLabelsPosition.Top,
+                    DataLabelsFormatter =
+                        point => ((ChartPoint<decimal, RoundedRectangleGeometry, LabelGeometry>)point)
+                                    .Model
+                                    .ToString("C2", new CultureInfo("pt-BR"))
+                }
+            };
+
+            AnnualXAxes = new[]
+            {
+                new Axis
+                {
+                    Name = "Mês",
+                    Labels = labels,
+                    TextSize = 12,
+                    LabelsPaint = new SolidColorPaint(SKColors.Black),
+                    NamePaint = new SolidColorPaint(SKColors.Black)
+                }
+            };
+
+            AnnualYAxes = new[]
+            {
+            new Axis
+                {
+                Name = "Valor Arrecadado (R$)",
+                Labeler = val => val.ToString("C0", new CultureInfo("pt-BR")),
+                MinLimit = 0,
+                TextSize = 12,
+                LabelsPaint = new SolidColorPaint(SKColors.Black),
+                SeparatorsPaint = new SolidColorPaint(SKColors.Black),
+                NamePaint = new SolidColorPaint(SKColors.Black)
+                }
+            };
+        }
 
 
     }

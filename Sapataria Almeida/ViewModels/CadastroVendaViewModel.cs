@@ -87,19 +87,11 @@ namespace Sapataria_Almeida.ViewModels
             MetodoPagamento = string.Empty;
         }
         public ObservableCollection<string> TiposProdutos { get; } = new ObservableCollection<string>
-    {
-        "Sapato Masculino",
-        "Sapato Feminino",
-        "Bolsa",
-        "Cinto"
-    };
+        {"Sapato Masculino", "Sapato Feminino", "Bolsa", "Cinto" };
 
         public ObservableCollection<string> MetodosPagamento { get; } = new ObservableCollection<string>
-    {
-        "Dinheiro",
-        "Pix",
-        "Cartão"
-    };
+         { "Dinheiro", "Pix", "Cartão de Credito", "Cartão de Debito", "Cheque" };
+   
     }
 
 

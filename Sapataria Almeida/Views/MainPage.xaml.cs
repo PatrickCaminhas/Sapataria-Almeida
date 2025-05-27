@@ -53,8 +53,11 @@ namespace Sapataria_Almeida.Views
                     case "ConsertosRetirados":
                         Frame.Navigate(typeof(ListarConsertosRetiradosPage));
                         break;
-                    case "Dashboard":
-                        Frame.Navigate(typeof(DashboardPage));
+                    case "DashboardTempo":
+                        Frame.Navigate(typeof(DashboardTempoPage));
+                        break;
+                    case "DashboardPagamento":
+                        Frame.Navigate(typeof(DashboardPagamentoPage));
                         break;
                 }
             }
