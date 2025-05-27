@@ -10,75 +10,7 @@
     mc:Ignorable="d"
     Language="pt-BR">
 
-    <NavigationView
-        PaneDisplayMode="Left"
-        IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="False"
-        SelectionChanged="NavView_SelectionChanged">
-
-        <!-- Menu Lateral -->
-        <NavigationView.MenuItems>
-            <!-- Use SymbolIcon ou FontIcon, não strings -->
-            <NavigationViewItem Tag="Index">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="PostUpdate" />
-                </NavigationViewItem.Icon>
-                Inicio
-            </NavigationViewItem>
-            
-            <NavigationViewItemSeparator/>
-            
-            <NavigationViewItem Tag="CadastrarVenda">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="PostUpdate" />
-                </NavigationViewItem.Icon>
-                Cadastrar Venda
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="CadastrarConserto">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Repair" />
-                </NavigationViewItem.Icon>
-                Cadastrar Conserto
-            </NavigationViewItem>
-
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="ConsertosAbertos">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Clock" />
-                </NavigationViewItem.Icon>
-                Consertos em aberto
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="ConsertosFinalizados">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
-                </NavigationViewItem.Icon>
-                Consertos finalizados
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="ConsertosRetirados">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Send" />
-                </NavigationViewItem.Icon>
-                Consertos retirados
-            </NavigationViewItem>
-            
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="DashboardMenu">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard
-            </NavigationViewItem>
-
-           
-        </NavigationView.MenuItems>
-
-        <!-- Conteúdo Principal -->
-        <NavigationView.Content>
+    
             <Grid Padding="16" RowSpacing="12" ColumnSpacing="12">
                 <!-- Define linhas e colunas -->
                 <Grid.RowDefinitions>
@@ -151,47 +83,6 @@
                                 SelectedDatesChanged="CalendarView_SelectedDatesChanged"/>
 
 
-                <!-- 3) Alertas (rodapé, ocupa as duas colunas) -->
-                <!--<ItemsRepeater Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-               ItemsSource="{Binding AlertasDoDia}" Margin="0,16,0,0">
-                    <ItemsRepeater.ItemTemplate>
-                        <DataTemplate x:DataType="vm:NotificacaoViewModel">
-                            <Border Background="LightYellow"
-                    BorderBrush="DarkOrange"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Padding="8"
-                    Margin="0,4">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    //Ícone de alerta 
-                                    <SymbolIcon Grid.Column="0" Symbol="Important" Foreground="OrangeRed"/>
-
-                                    // Texto da mensagem 
-                                    <TextBlock Grid.Column="1"
-                               Foreground="OrangeRed"
-                               Text="{x:Bind Mensagem}"
-                               TextWrapping="WrapWholeWords"
-                               Margin="8,0"/>
-
-                                    //Botão de fechar 
-                                    <AppBarButton Grid.Column="2"
-                                  Icon="Cancel"
-                                  Label="Fechar"
-                                  Command="{x:Bind FecharCommand}"
-                                  Style="{StaticResource AppBarButtonRevealStyle}" />
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsRepeater.ItemTemplate>
-                </ItemsRepeater> -->
-
-
                 <!-- 3) Imagem ocupando todo o rodapé -->
                 <Grid
     Grid.Row="1"
@@ -226,7 +117,7 @@
                     </Border>
                 </Grid>
 
-                <!--<TextBlock
+               <TextBlock
     Grid.Row="2"
     Grid.Column="0"
     Grid.ColumnSpan="2"
@@ -240,7 +131,7 @@
         Patrick Caminhas
     </Hyperlink>
 </TextBlock>
-                -->
+                
 
 
 
@@ -248,7 +139,5 @@
             <!-- Texto com o hyperlink abaixo da imagem -->
             <!-- Texto com hyperlink abaixo da imagem -->
 
-        </NavigationView.Content>
-
-    </NavigationView>
+    
 </Page>

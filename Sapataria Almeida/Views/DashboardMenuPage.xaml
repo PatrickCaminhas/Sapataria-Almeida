@@ -13,153 +13,139 @@
     
     Language="pt-BR">
 
-    <NavigationView
-        PaneDisplayMode="Left"
-        IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="False"
-        SelectionChanged="NavView_SelectionChanged">
 
-        <!-- Menu Lateral -->
-        <NavigationView.MenuItems>
-            <!-- Use SymbolIcon ou FontIcon, não strings -->
-            <NavigationViewItem Tag="Index">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="PostUpdate" />
-                </NavigationViewItem.Icon>
-                Inicio
-            </NavigationViewItem>
+    <Grid Padding="16" RowSpacing="12" ColumnSpacing="12">
+        <!-- Define linhas e colunas -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <!-- Top: indicadores + calendário -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!-- Bottom: alertas -->
+        </Grid.RowDefinitions>
 
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="CadastrarVenda">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="PostUpdate" />
-                </NavigationViewItem.Icon>
-                Cadastrar Venda
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="CadastrarConserto">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Repair" />
-                </NavigationViewItem.Icon>
-                Cadastrar Conserto
-            </NavigationViewItem>
-
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="ConsertosAbertos">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Clock" />
-                </NavigationViewItem.Icon>
-                Consertos em aberto
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="ConsertosFinalizados">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
-                </NavigationViewItem.Icon>
-                Consertos finalizados
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="ConsertosRetirados">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Send" />
-                </NavigationViewItem.Icon>
-                Consertos retirados
-            </NavigationViewItem>
-
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="DashboardMenu">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard
-            </NavigationViewItem>
-        </NavigationView.MenuItems>
-
-        <!-- Conteúdo Principal -->
-        <NavigationView.Content>
-            <Grid Padding="16" RowSpacing="12" ColumnSpacing="12">
-                <!-- Define linhas e colunas -->
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <!-- Top: indicadores + calendário -->
-                    <RowDefinition Height="*"/>
-                    <!-- Bottom: alertas -->
-                </Grid.RowDefinitions>
-
-                <!--GRAFICO -->
+        <!--GRAFICO -->
 
 
-                <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TextFillColorPrimary}" CornerRadius="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Foreground="{StaticResource AppBackgroundBrush}" FontSize="20">Estados dos consertos abertos</TextBlock>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TextFillColorPrimary}" CornerRadius="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" Foreground="{StaticResource AppBackgroundBrush}" FontSize="20">Estados dos consertos abertos</TextBlock>
 
-                    <lvc:PieChart Grid.Row="1"
+            <lvc:PieChart Grid.Row="1"
                         Series="{Binding StateSeries}"
                         LegendPosition="Right"/>
-                </Grid>
-                <Grid Grid.Row="1" ColumnSpacing="30" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <!-- Coluna 0: indicadores -->
-                        <ColumnDefinition Width="Auto"/>
-                        <!-- Coluna 1: calendário -->
-                        <ColumnDefinition Width="*"/>
-                        <!-- Coluna 2: calendário -->
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" >
-                        <Button  
+        </Grid>
+        <Grid Grid.Row="1" ColumnSpacing="30" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Coluna 0: indicadores -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Coluna 1: calendário -->
+                <ColumnDefinition Width="*"/>
+                <!-- Coluna 2: calendário -->
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="12">
+                <TextBlock>Gráficos</TextBlock>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" >
+                <Button  
                        Click="IrParaGraficosSemanais"  
                        HorizontalAlignment="Left"  
                        Margin="0,0,0,10">
-                            <StackPanel Orientation="Horizontal" Spacing="5">
-                                <SymbolIcon Symbol="CalendarWeek" Style="{Binding Foreground,
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="CalendarWeek" Style="{Binding Foreground,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                                <TextBlock Text="Gráficos da semana" VerticalAlignment="Center" Style="{Binding Foreground,
+                        <TextBlock Text="Gráficos da semana" VerticalAlignment="Center" Style="{Binding Foreground,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Column="1" >
-                        <Button  
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+                <Button  
                        Click="IrParaGraficosMensais"  
                        HorizontalAlignment="Left"  
                        Margin="0,0,0,10">
-                            <StackPanel Orientation="Horizontal" Spacing="5">
-                                <SymbolIcon Symbol="Calendar" Style="{Binding Foreground,
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Calendar" Style="{Binding Foreground,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                                <TextBlock Text="Gráficos do mês" VerticalAlignment="Center" Style="{Binding Foreground,
+                        <TextBlock Text="Gráficos do mês" VerticalAlignment="Center" Style="{Binding Foreground,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Button  
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center">
+                <Button  
                        Click="IrParaGraficosAnuais"  
                        HorizontalAlignment="Left"  
                        Margin="0,0,0,10">
-                            <StackPanel Orientation="Horizontal" Spacing="5">
-                                <SymbolIcon Symbol="CalendarDay" Style="{Binding Foreground,
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="CalendarDay" Style="{Binding Foreground,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                                <TextBlock Text="Gráficos do ano" VerticalAlignment="Center" Style="{Binding Foreground,
+                        <TextBlock Text="Gráficos do ano" VerticalAlignment="Center" Style="{Binding Foreground,
                                 RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                </Grid>
-
-
-
+                    </StackPanel>
+                </Button>
             </Grid>
-            <!-- Texto com o hyperlink abaixo da imagem -->
-            <!-- Texto com hyperlink abaixo da imagem -->
+            <Grid Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Center">
+                <TextBlock>Sistema</TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" ColumnSpacing="30" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
 
-        </NavigationView.Content>
-
-    </NavigationView>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- Coluna 0: indicadores -->
+                <ColumnDefinition Width="*"/>
+                <!-- Coluna 1: calendário -->
+                <ColumnDefinition Width="*"/>
+                <!-- Coluna 2: calendário -->
+            </Grid.ColumnDefinitions>
+           
+            <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+               
+                    <Button>
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <TextBlock Text="Alterar/Cadastrar produtos de venda" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        </StackPanel>
+                    </Button>
+                   
+               
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+                <Button>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Alterar/Cadastrar itens de conserto" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
+                <Button>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Alterar senha de Dashboard" VerticalAlignment="Center" Style="{Binding Foreground,
+RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
 </Page>

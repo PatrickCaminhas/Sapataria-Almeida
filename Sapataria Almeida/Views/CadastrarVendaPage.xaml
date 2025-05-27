@@ -18,73 +18,7 @@
     <Page.Resources>
         <converters:CurrencyFormatConverter x:Key="CurrencyConverter"/>
     </Page.Resources>
-    <NavigationView
- PaneDisplayMode="Left"
- IsBackButtonVisible="Collapsed"
- IsSettingsVisible="False"
- SelectionChanged="NavView_SelectionChanged">
-
-        <!-- Menu Lateral -->
-        <NavigationView.MenuItems>
-            <!-- Use SymbolIcon ou FontIcon, não strings -->
-            <NavigationViewItem Tag="Index">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="PostUpdate" />
-                </NavigationViewItem.Icon>
-                Inicio
-            </NavigationViewItem>
-
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="CadastrarVenda">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="PostUpdate" />
-                </NavigationViewItem.Icon>
-                Cadastrar Venda
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="CadastrarConserto">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Repair" />
-                </NavigationViewItem.Icon>
-                Cadastrar Conserto
-            </NavigationViewItem>
-
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="ConsertosAbertos">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Clock" />
-                </NavigationViewItem.Icon>
-                Consertos em aberto
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="ConsertosFinalizados">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
-                </NavigationViewItem.Icon>
-                Consertos finalizados
-            </NavigationViewItem>
-
-            <NavigationViewItem Tag="ConsertosRetirados">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Send" />
-                </NavigationViewItem.Icon>
-                Consertos retirados
-            </NavigationViewItem>
-
-            <NavigationViewItemSeparator/>
-
-            <NavigationViewItem Tag="DashboardMenu">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard
-            </NavigationViewItem>
-        </NavigationView.MenuItems>
-
-        <!-- Conteúdo Principal -->
-        <NavigationView.Content>
+   
             <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -184,7 +118,5 @@
         </StackPanel>
     </Grid>
 
-        </NavigationView.Content>
 
-    </NavigationView>
 </Page>

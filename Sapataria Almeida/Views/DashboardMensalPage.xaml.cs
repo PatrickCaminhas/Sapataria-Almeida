@@ -51,7 +51,7 @@ namespace Sapataria_Almeida.Views
 
         private void VoltarParaMainPage(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(DashboardMenuPage));
         }
      
     }

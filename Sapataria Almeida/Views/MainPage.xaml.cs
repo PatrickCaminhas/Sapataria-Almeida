@@ -1,13 +1,15 @@
+using Microsoft.UI;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Sapataria_Almeida.Data;
 using Sapataria_Almeida.Repositories;
 using Sapataria_Almeida.ViewModels;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI;
-using Microsoft.UI.Text;
-using System.Text;
+using Sapataria_Almeida.Views.Dialogs;
 using System;
+using System.Text;
+using System.Threading.Tasks;
 
 
 
@@ -26,8 +28,14 @@ namespace Sapataria_Almeida.Views
             this.DataContext = new MainPageViewModel(repositorio);
 
         }
-
-        private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private async Task HandleDashboardAsync()
+        {
+            var repositorio = new RepositorioDados(new AppDbContext());
+            var dialog = new DashboardPasswordDialog(repositorio) { XamlRoot = this.XamlRoot };
+            if (await dialog.RequestPasswordAsync())
+                Frame.Navigate(typeof(DashboardMenuPage));
+        }
+        private async void NavView_SelectionChangedAsync(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             // Ignora o Settings, se estiver visível
             if (args.IsSettingsSelected)
@@ -57,7 +65,8 @@ namespace Sapataria_Almeida.Views
                         Frame.Navigate(typeof(ListarConsertosRetiradosPage));
                         break;
                     case "DashboardMenu":
-                        Frame.Navigate(typeof(DashboardMenuPage));
+                        //Frame.Navigate(typeof(DashboardMenuPage));
+                        await HandleDashboardAsync();
                         break;
                 }
             }

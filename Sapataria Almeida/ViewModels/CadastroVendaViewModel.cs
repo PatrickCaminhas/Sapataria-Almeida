@@ -1,24 +1,27 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.UI.Dispatching;
+using Sapataria_Almeida.Data;
+using Sapataria_Almeida.Models;
+using Sapataria_Almeida.Repositories;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Dispatching;
-
-using Sapataria_Almeida.Data;
-using Sapataria_Almeida.Models;
 
 namespace Sapataria_Almeida.ViewModels
 {
     public partial class CadastroVendaViewModel : ObservableObject
     {
+        private readonly RepositorioDados _repositorio;
+
         private string _tipoProduto = string.Empty;
         private string _valor = string.Empty;
         private string _metodoPagamento = string.Empty;
         private readonly AppDbContext _db = new AppDbContext();
-
+        public ObservableCollection<string> TiposProdutos { get; }
 
 
 
@@ -27,6 +30,7 @@ namespace Sapataria_Almeida.ViewModels
             get => _tipoProduto;
             set => SetProperty(ref _tipoProduto, value);
         }
+  
 
         public string Valor
         {
@@ -52,8 +56,12 @@ namespace Sapataria_Almeida.ViewModels
             _tipoProduto = string.Empty;
             _valor = string.Empty;
             _metodoPagamento = string.Empty;
+            _repositorio = new RepositorioDados(_db);
             AdicionarItemCommand = new RelayCommand(AdicionarItem);
             FinalizarVendaCommand = new AsyncRelayCommand(FinalizarVendaAsync);
+            TiposProdutos = new ObservableCollection<string>();
+            LoadTiposProdutos();
+
         }
 
         private void AdicionarItem()
@@ -63,6 +71,14 @@ namespace Sapataria_Almeida.ViewModels
                 Carrinho.Add(new ItemVenda { TipoProduto = TipoProduto, Valor = valorDecimal });
                 Valor = "";
                 TipoProduto = "";
+            }
+        }
+        private void LoadTiposProdutos()
+        {
+            var lista = _repositorio.GetProdutos();
+            foreach (var prod in lista)
+            {
+                TiposProdutos.Add(prod.Nome);
             }
         }
 
@@ -86,8 +102,9 @@ namespace Sapataria_Almeida.ViewModels
             Carrinho.Clear();
             MetodoPagamento = string.Empty;
         }
-        public ObservableCollection<string> TiposProdutos { get; } = new ObservableCollection<string>
-        {"Sapato Masculino", "Sapato Feminino", "Bolsa", "Cinto" };
+        //public ObservableCollection<string> TiposProdutos { get; } = new ObservableCollection<string>
+        //{"Sapato Masculino", "Sapato Feminino", "Bolsa", "Cinto" };
+    
 
         public ObservableCollection<string> MetodosPagamento { get; } = new ObservableCollection<string>
          { "Dinheiro", "Pix", "Cartão de Credito", "Cartão de Debito", "Cheque" };

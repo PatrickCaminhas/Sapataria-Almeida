@@ -16,6 +16,11 @@ namespace Sapataria_Almeida.Repositories
             _ctx = ctx;
         }
 
+        public List<Produto> GetProdutos()
+        => _ctx.Produto
+                   .OrderBy(p => p.Nome)
+                   .ToList();
+
         public async Task<List<Notificacao>> ObterNotificacoesNaoLidasAsync()
             => await _ctx.Set<Notificacao>()
                          .Where(n => !n.Lida)
@@ -30,5 +35,11 @@ namespace Sapataria_Almeida.Repositories
                 await _ctx.SaveChangesAsync();
             }
         }
+           public string GetDashboardPassword()
+           {
+               // Supondo que você tenha uma tabela Configuracoes com uma coluna DashboardPassword
+               var cfg = _ctx.Administracao.FirstOrDefault();
+               return cfg?.Senha ?? string.Empty;
+           }
     }
 }
