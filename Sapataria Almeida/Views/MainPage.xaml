@@ -19,6 +19,15 @@
         <!-- Menu Lateral -->
         <NavigationView.MenuItems>
             <!-- Use SymbolIcon ou FontIcon, não strings -->
+            <NavigationViewItem Tag="Index">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="PostUpdate" />
+                </NavigationViewItem.Icon>
+                Inicio
+            </NavigationViewItem>
+            
+            <NavigationViewItemSeparator/>
+            
             <NavigationViewItem Tag="CadastrarVenda">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="PostUpdate" />
@@ -57,6 +66,13 @@
             </NavigationViewItem>
             
             <NavigationViewItemSeparator/>
+
+            <NavigationViewItem Tag="DashboardMenu">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard
+            </NavigationViewItem>
 
             <NavigationViewItem Tag="DashboardTempo">
                 <NavigationViewItem.Icon>

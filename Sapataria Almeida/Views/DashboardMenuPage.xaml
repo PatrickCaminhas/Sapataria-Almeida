@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Sapataria_Almeida.Views.DashboardMenuPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sapataria_Almeida.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:vm="using:Sapataria_Almeida.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:lvc="using:LiveChartsCore.SkiaSharpView.WinUI"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance vm:DashboardMenuViewModel, IsDesignTimeCreatable=True}"
+    
+    Language="pt-BR">
+
+    <NavigationView
+        PaneDisplayMode="Left"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        SelectionChanged="NavView_SelectionChanged">
+
+        <!-- Menu Lateral -->
+        <NavigationView.MenuItems>
+            <!-- Use SymbolIcon ou FontIcon, não strings -->
+            <NavigationViewItem Tag="Index">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="PostUpdate" />
+                </NavigationViewItem.Icon>
+                Inicio
+            </NavigationViewItem>
+
+            <NavigationViewItemSeparator/>
+
+            <NavigationViewItem Tag="CadastrarVenda">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="PostUpdate" />
+                </NavigationViewItem.Icon>
+                Cadastrar Venda
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="CadastrarConserto">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Repair" />
+                </NavigationViewItem.Icon>
+                Cadastrar Conserto
+            </NavigationViewItem>
+
+            <NavigationViewItemSeparator/>
+
+            <NavigationViewItem Tag="ConsertosAbertos">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Clock" />
+                </NavigationViewItem.Icon>
+                Consertos em aberto
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="ConsertosFinalizados">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+                Consertos finalizados
+            </NavigationViewItem>
+
+            <NavigationViewItem Tag="ConsertosRetirados">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Send" />
+                </NavigationViewItem.Icon>
+                Consertos retirados
+            </NavigationViewItem>
+
+            <NavigationViewItemSeparator/>
+
+            <NavigationViewItem Tag="DashboardTempo">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Tempo
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardPagamento">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Pagamento
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardSemanal">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Semanal
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardMensal">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Mensal
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardAnual">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Anual
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <!-- Conteúdo Principal -->
+        <NavigationView.Content>
+            <Grid Padding="16" RowSpacing="12" ColumnSpacing="12">
+                <!-- Define linhas e colunas -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <!-- Top: indicadores + calendário -->
+                    <RowDefinition Height="*"/>
+                    <!-- Bottom: alertas -->
+                </Grid.RowDefinitions>
+
+                <!--GRAFICO -->
+
+
+                <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource TextFillColorPrimary}" CornerRadius="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" Foreground="{StaticResource AppBackgroundBrush}" FontSize="20">Estados dos consertos abertos</TextBlock>
+
+                    <lvc:PieChart Grid.Row="1"
+                        Series="{Binding StateSeries}"
+                        LegendPosition="Right"/>
+                </Grid>
+                <Grid Grid.Row="1" ColumnSpacing="30" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Coluna 0: indicadores -->
+                        <ColumnDefinition Width="Auto"/>
+                        <!-- Coluna 1: calendário -->
+                        <ColumnDefinition Width="*"/>
+                        <!-- Coluna 2: calendário -->
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" >
+                        <Button  
+                       Click="IrParaGraficosSemanais"  
+                       HorizontalAlignment="Left"  
+                       Margin="0,0,0,10">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <SymbolIcon Symbol="CalendarWeek" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                <TextBlock Text="Gráficos da semana" VerticalAlignment="Center" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="1" >
+                        <Button  
+                       Click="IrParaGraficosMensais"  
+                       HorizontalAlignment="Left"  
+                       Margin="0,0,0,10">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <SymbolIcon Symbol="Calendar" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                <TextBlock Text="Gráficos do mês" VerticalAlignment="Center" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button  
+                       Click="IrParaGraficosAnuais"  
+                       HorizontalAlignment="Left"  
+                       Margin="0,0,0,10">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <SymbolIcon Symbol="CalendarDay" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                <TextBlock Text="Gráficos do ano" VerticalAlignment="Center" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+
+
+            </Grid>
+            <!-- Texto com o hyperlink abaixo da imagem -->
+            <!-- Texto com hyperlink abaixo da imagem -->
+
+        </NavigationView.Content>
+
+    </NavigationView>
+</Page>

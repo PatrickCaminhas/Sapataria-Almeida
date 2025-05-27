@@ -38,6 +38,9 @@ namespace Sapataria_Almeida.Views
             {
                 switch (tag)
                 {
+                    case "Index":
+                        Frame.Navigate(typeof(MainPage));
+                        break;
                     case "CadastrarVenda":
                         Frame.Navigate(typeof(CadastrarVendaPage));
                         break;
@@ -67,6 +70,9 @@ namespace Sapataria_Almeida.Views
                         break;
                     case "DashboardAnual":
                         Frame.Navigate(typeof(DashboardAnualPage));
+                        break;
+                    case "DashboardMenu":
+                        Frame.Navigate(typeof(DashboardMenuPage));
                         break;
                 }
             }
