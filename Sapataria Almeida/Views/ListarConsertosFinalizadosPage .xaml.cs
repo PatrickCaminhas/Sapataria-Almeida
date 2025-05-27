@@ -14,6 +14,42 @@ namespace Sapataria_Almeida.Views
             InitializeComponent();
         }
 
+        private void NavView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            // Ignora o Settings, se estiver visível
+            if (args.IsSettingsSelected)
+                return;
+
+            if (args.SelectedItemContainer is NavigationViewItem item &&
+                item.Tag is string tag)
+            {
+                switch (tag)
+                {
+                    case "Index":
+                        Frame.Navigate(typeof(MainPage));
+                        break;
+                    case "CadastrarVenda":
+                        Frame.Navigate(typeof(CadastrarVendaPage));
+                        break;
+                    case "CadastrarConserto":
+                        Frame.Navigate(typeof(CadastrarConsertoPage));
+                        break;
+                    case "ConsertosAbertos":
+                        Frame.Navigate(typeof(ListarConsertosPage));
+                        break;
+                    case "ConsertosFinalizados":
+                        Frame.Navigate(typeof(ListarConsertosFinalizadosPage));
+                        break;
+                    case "ConsertosRetirados":
+                        Frame.Navigate(typeof(ListarConsertosRetiradosPage));
+                        break;
+                    case "DashboardMenu":
+                        Frame.Navigate(typeof(DashboardMenuPage));
+                        break;
+                }
+            }
+        }
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

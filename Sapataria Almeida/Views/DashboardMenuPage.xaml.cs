@@ -64,24 +64,13 @@ namespace Sapataria_Almeida.Views
                     case "ConsertosRetirados":
                         Frame.Navigate(typeof(ListarConsertosRetiradosPage));
                         break;
-                    case "DashboardTempo":
-                        Frame.Navigate(typeof(DashboardTempoPage));
-                        break;
-                    case "DashboardPagamento":
-                        Frame.Navigate(typeof(DashboardPagamentoPage));
-                        break;
-                    case "DashboardSemanal":
-                        Frame.Navigate(typeof(DashboardSemanalPage));
-                        break;
-                    case "DashboardMensal":
-                        Frame.Navigate(typeof(DashboardMensalPage));
-                        break;
-                    case "DashboardAnual":
-                        Frame.Navigate(typeof(DashboardAnualPage));
+                    case "DashboardMenu":
+                        Frame.Navigate(typeof(DashboardMenuPage));
                         break;
                 }
             }
         }
+
         private void IrParaGraficosSemanais(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(DashboardSemanalPage));
