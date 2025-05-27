@@ -70,6 +70,24 @@
                 </NavigationViewItem.Icon>
                 Dashboard Pagamento
             </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardSemanal">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Semanal
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardMensal">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Mensal
+            </NavigationViewItem>
+            <NavigationViewItem Tag="DashboardAnual">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="FourBars" />
+                </NavigationViewItem.Icon>
+                Dashboard Anual
+            </NavigationViewItem>
         </NavigationView.MenuItems>
 
         <!-- Conteúdo Principal -->

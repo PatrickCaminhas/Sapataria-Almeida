@@ -65,7 +65,16 @@
     <Page Update="Views\CadastrarConsertoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Update="Views\DashboardAnualPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\DashboardPagamentoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DashboardMensalPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DashboardSemanalPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\DetalhesConsertoRetiradoPage.xaml">
