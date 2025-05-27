@@ -1,28 +1,64 @@
-# Sistema para sapataria
-![image](https://github.com/user-attachments/assets/cf771436-abd7-4eae-b450-589514ebcbed)
-## O que é:
-Este é um sistema administrativo para cadastro de consertos e vendas de uma sapataria.
+# Sistema de Gestão para Sapataria
 
-## O que ele realiza:
-Modularizado em três partes:
-- Vendas: Contém cadastro e lista de vendas.
-- Conserto: Contém cadastro, lista de consertos em aberto, lista de consertos finalizados e lista de consertos entregues.
-- Informações: Gráficos e informações da sapataria de acordo com os valores de vendas e consertos.
+## Sobre
 
-## Tecnologias utilizadas
-Linguagem de programação:
-- C#
-  
-Ferramentas:
-- WinUI
-- LiveCharts2
-- SQLite
+Este projeto é um sistema administrativo desktop desenvolvido em C# e WinUI 3 (.NET 8) voltado para gerenciamento de vendas e consertos de uma sapataria localizada em Curitiba/PR. O objetivo é fornecer uma interface intuitiva para cadastro, listagem, acompanhamento e análise dos serviços prestados.
 
-## Níveis de acesso:
-- Usuário comum: sem senha, com acesso aos modulos de venda e conserto.
-- Usuário administrador: Com senha, sendo necessário apresentar a mesma ao tentar acessar o modulo de informações.
+## Funcionalidades
+
+* **Módulo de Vendas**
+
+  * Cadastro de vendas
+  * Listagem de vendas realizadas
+
+* **Módulo de Consertos**
+
+  * Cadastro de consertos
+  * Listagem de consertos em aberto
+  * Listagem de consertos finalizados
+  * Listagem de consertos entregues
+
+* **Módulo de Informações**
+
+  * Dashboards e gráficos de desempenho das vendas e consertos
+
+## Níveis de Acesso
+
+| Perfil                | Permissões                                  |
+| --------------------- | ------------------------------------------- |
+| Usuário Comum         | Acesso aos módulos de Vendas e Consertos    |
+| Usuário Administrador | Acesso ao módulo de Informações (com senha) |
+
+> A senha de administrador deve ser informada para visualizar relatórios e dashboards.
+
+## Tecnologias e Dependências
+
+* **Linguagem**: C# 10 / .NET 8.0
+* **Interface**: WinUI 3 (Windows App SDK 1.7)
+* **Banco de Dados**: SQLite (via Entity Framework Core 9.0)
+* **MVVM**: CommunityToolkit.Mvvm 8.4.0
+* **Gráficos**: LiveChartsCore.SkiaSharpView\.WinUI 2.0.0-rc5.3
+
+## Pré-requisitos
+
+* Windows 10 (build 19041) ou superior
+* .NET 8.0 SDK instalado
+* Windows App SDK 1.7
+* Visual Studio 2022 ou superior com workload de desenvolvimento de aplicativos Windows
+
+## Como Executar
+
+1. Clone este repositório:
+
+   ```bash
+   git clone https://github.com/seu-usuario/sapataria-almeida.git
+   ```
+2. Abra a solução `Sapataria_Almeida.sln` no Visual Studio.
+3. Restaure os pacotes NuGet.
+4. Compile e execute o projeto.
 
 
-                    
 
-Realizado no contexto de um Sapataria da cidade de Curitiba/PR. 
+## Contato
+
+Linkedin https://www.linkedin.com/in/patrickcaminhas/
