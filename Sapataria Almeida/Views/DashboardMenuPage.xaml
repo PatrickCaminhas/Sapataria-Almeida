@@ -70,35 +70,11 @@
 
             <NavigationViewItemSeparator/>
 
-            <NavigationViewItem Tag="DashboardTempo">
+            <NavigationViewItem Tag="DashboardMenu">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="FourBars" />
                 </NavigationViewItem.Icon>
-                Dashboard Tempo
-            </NavigationViewItem>
-            <NavigationViewItem Tag="DashboardPagamento">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard Pagamento
-            </NavigationViewItem>
-            <NavigationViewItem Tag="DashboardSemanal">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard Semanal
-            </NavigationViewItem>
-            <NavigationViewItem Tag="DashboardMensal">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard Mensal
-            </NavigationViewItem>
-            <NavigationViewItem Tag="DashboardAnual">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="FourBars" />
-                </NavigationViewItem.Icon>
-                Dashboard Anual
+                Dashboard
             </NavigationViewItem>
         </NavigationView.MenuItems>
 
