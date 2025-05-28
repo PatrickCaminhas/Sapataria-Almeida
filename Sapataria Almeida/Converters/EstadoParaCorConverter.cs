@@ -14,7 +14,7 @@ namespace Sapataria_Almeida.Converters
 
             return estado switch
             {
-                "Em Orçamento" => new SolidColorBrush(Colors.Red),
+                "Esperando orçamento" => new SolidColorBrush(Colors.Red),
                 "Aguardando Sinal" => new SolidColorBrush(Colors.Goldenrod),
                 "Em Andamento" => new SolidColorBrush(Colors.Green),
                 "Finalizado" => new SolidColorBrush(Colors.Gray),

@@ -10,7 +10,7 @@
     Background="{StaticResource AppBackgroundBrush}"
     Foreground="{StaticResource TextFillColorPrimary}">
 
-    <Grid Width="550" Height="300">
+    <Grid Width="550" Height="100">
         <StackPanel Spacing="10" Padding="20">
 
             <!-- Estado -->

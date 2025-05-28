@@ -16,7 +16,7 @@
         <converters:CurrencyFormatConverter x:Key="CurrencyConverter"/>
     </Page.Resources>
 
-            <StackPanel Padding="20" Spacing="10">
+    <StackPanel Padding="20" Spacing="10">
         <Button Click="VoltarParaListagem" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" Spacing="5">
                 <SymbolIcon Symbol="Undo" Style="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
@@ -34,28 +34,30 @@
 
             <StackPanel Grid.Column="0" Orientation="Vertical" Spacing="10" HorizontalAlignment="Left">
                 <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" >
                         <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
                             <TextBlock Text="Datas" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Spacing="10" Padding="10">
-                            <TextBlock Text="Data do pedido:"/>
-                            <TextBlock Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
-                            <TextBlock Text="Hora:"/>
-                            <TextBlock Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Spacing="10" Padding="10">
-                            <TextBlock Text="Previsão de finalização:"/>
-                            <TextBlock Text="{Binding Conserto.DataFinal, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
-                            <TextBlock Text="Hora:"/>
-                            <TextBlock Text="{Binding Conserto.DataFinal, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Spacing="10" Padding="10">
-                            <TextBlock Text="Data da retirada:"/>
-                            <TextBlock Text="{Binding Conserto.DataRetirada, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
-                            <TextBlock Text="Hora:"/>
-                            <TextBlock Text="{Binding Conserto.DataRetirada, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
-                        </StackPanel>
+                        <TextBlock 
+                            Padding="5">
+                            <Run Text="Data do pedido:"/>
+                            <Run Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                            <Run Text="Hora:"/>
+                            <Run Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
+                        </TextBlock>
+                        <TextBlock 
+                            Padding="5">
+                            <Run Text="Previsão de finalização:"/>
+                            <Run Text="{Binding Conserto.DataFinal, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                        </TextBlock>
+                        <TextBlock 
+                            Padding="5">
+                            <Run Text="Data da retirada:"/>
+                            <Run Text="{Binding Conserto.DataRetirada, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                            <Run Text="Hora:"/>
+                            <Run Text="{Binding Conserto.DataRetirada, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
+                        </TextBlock>
+
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
@@ -63,12 +65,12 @@
                         <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
                             <TextBlock Text="Cliente" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Spacing="10" Padding="10">
-                            <TextBlock Padding="5">
+                        <StackPanel Orientation="Vertical" Spacing="10" Padding="5">
+                            <TextBlock >
                                 <Run Text="Nome: "/>
                                 <Run Text="{Binding Conserto.Cliente.Nome}"/>
                             </TextBlock>
-                            <TextBlock Padding="5">
+                            <TextBlock>
                                 <Run Text="Telefone: "/>
                                 <Run Text="{Binding Conserto.Cliente.Telefone}"/>
                             </TextBlock>
@@ -81,23 +83,23 @@
                         <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
                             <TextBlock Text="Pagamento" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
                         </StackPanel>
-                        <TextBlock Padding="10">
+                        <TextBlock Padding="5">
                             <Run Text="Metodo de pagamento do Sinal: "/>
                             <Run Text="{Binding Conserto.MetodoPagamentoSinal}"/>
                         </TextBlock>
-                        <TextBlock Padding="10">
+                        <TextBlock Padding="5">
                             <Run Text="Sinal: R$"/>
                             <Run Text="{Binding Conserto.Sinal, Converter={StaticResource CurrencyConverter}}"/>
                         </TextBlock>
-                        <TextBlock Padding="10">
+                        <TextBlock Padding="5">
                             <Run Text="Metodo de pagamento da retirada: "/>
                             <Run Text="{Binding Conserto.MetodoPagamentoFinal}"/>
                         </TextBlock>
-                        <TextBlock Padding="10">
+                        <TextBlock Padding="5">
                             <Run Text="Valor pago na retirada: R$"/>
                             <Run Text="{Binding Conserto.ValorPagamento, Converter={StaticResource CurrencyConverter}}"/>
                         </TextBlock>
-                        <TextBlock FontWeight="Bold" Padding="10">
+                        <TextBlock FontWeight="Bold" Padding="5">
                             <Run Text="Total: "/>
                             <Run Text="{Binding ValorTotal, Converter={StaticResource CurrencyConverter}}"/>
                         </TextBlock>
@@ -108,18 +110,18 @@
             <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Stretch">
                 <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
                     <StackPanel Background="{StaticResource TextFillColorPrimary}">
-                        <TextBlock Text="Itens de Conserto:" FontWeight="Bold" Margin="0,10,0,0" Foreground="{StaticResource AppBackgroundBrush}" Padding="5"/>
+                        <TextBlock Text="Itens de Conserto:" FontWeight="Bold"  Foreground="{StaticResource AppBackgroundBrush}" Padding="5"/>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
                     <ListView ItemsSource="{Binding Itens}" IsItemClickEnabled="False" HorizontalAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Padding="10" ColumnSpacing="50">
+                                <Grid Padding="5" ColumnSpacing="50">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="{Binding TipoConserto}" Grid.Column="0" VerticalAlignment="Center"/>

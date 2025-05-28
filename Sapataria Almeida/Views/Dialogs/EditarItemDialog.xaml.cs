@@ -25,13 +25,21 @@ namespace Sapataria_Almeida.Views.Dialogs
                 opcoes.Add("Orçamento");
             }
             // 3) 
-       
-            if(Item.Estado == "Orçamento")
+            if(Item.Estado=="Em conserto")
+                opcoes.Add("Orçamento");
+
+            if (Item.Estado == "Orçamento")
+            {
                 opcoes.Add("Em conserto");
+                
+            }
             // 4) Se não for "Finalizado", sempre oferecer "Finalizado" como próximo passo
 
             if (Item.Estado != "Finalizado")
+            {
+                if(Item.Valor != 0 )
                 opcoes.Add("Finalizado");
+            }
 
             // 5) Atribui ao ComboBox e posiciona no estado atual
             EstadoCombo.ItemsSource = opcoes;

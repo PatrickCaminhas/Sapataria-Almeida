@@ -5,7 +5,10 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Sapataria_Almeida.Data;
+using Sapataria_Almeida.Repositories;
 using Sapataria_Almeida.ViewModels;
+using Sapataria_Almeida.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,12 +28,19 @@ namespace Sapataria_Almeida.Views
     public sealed partial class DashboardMenuPage : Page
     {
         public DashboardMenuViewModel ViewModel { get; }
+        private readonly RepositorioDados _repositorio;
+
 
         public DashboardMenuPage()
         {
+            
             this.InitializeComponent();
+            var ctx = new AppDbContext();
+            _repositorio = new RepositorioDados(ctx);
+
             ViewModel = new DashboardMenuViewModel();
             DataContext = ViewModel;
+
         }
 
 
@@ -83,6 +93,35 @@ namespace Sapataria_Almeida.Views
         {
             Frame.Navigate(typeof(DashboardAnualPage));
         }
+
+        private async void BtnAlterarSenha_Click(object sender, RoutedEventArgs e)
+        {
+            // Cria o contexto e injeta no repositório
+            var ctx = new AppDbContext();
+            var repositorio = new RepositorioDados(ctx);
+
+            // Cria o diálogo e define o XamlRoot
+            var dialog = new AlterarSenhaAdminDialog(repositorio)
+            {
+                XamlRoot = this.XamlRoot   // <-- aqui
+            };
+
+            // Abre o diálogo
+            bool trocou = await dialog.RequestPasswordAsync();
+
+            if (trocou)
+            {
+                var success = new ContentDialog
+                {
+                    Title = "Sucesso",
+                    Content = "Senha alterada com sucesso!",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot  // também para este outro diálogo
+                };
+                await success.ShowAsync();
+            }
+        }
+
 
 
 

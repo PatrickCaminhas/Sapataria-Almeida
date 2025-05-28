@@ -102,47 +102,51 @@
         <Grid Grid.Row="2" ColumnSpacing="30" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <!-- Coluna 0: indicadores -->
                 <ColumnDefinition Width="*"/>
-                <!-- Coluna 1: calendário -->
                 <ColumnDefinition Width="*"/>
-                <!-- Coluna 2: calendário -->
             </Grid.ColumnDefinitions>
-           
-            <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
-               
-                    <Button>
-                        <StackPanel Orientation="Horizontal" Spacing="5">
-                            <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                            <TextBlock Text="Alterar/Cadastrar produtos de venda" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                        </StackPanel>
-                    </Button>
-                   
-               
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+
+            <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Padding="5">
                 <Button>
                     <StackPanel Orientation="Horizontal" Spacing="5">
-                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                        <TextBlock Text="Alterar/Cadastrar itens de conserto" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Cadastrar produtos de venda" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                     </StackPanel>
                 </Button>
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">
+            <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Padding="5">
                 <Button>
                     <StackPanel Orientation="Horizontal" Spacing="5">
-                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                        <TextBlock Text="Alterar senha de Dashboard" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Cadastrar itens de conserto" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Padding="5">
+                <Button x:Name="BtnAlterarSenha" Click="BtnAlterarSenha_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Alterar senha de Dashboard" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Padding="5">
+                <Button>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Apagar produtos de venda" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Padding="5">
+                <Button>
+                    <StackPanel Orientation="Horizontal" Spacing="5">
+                        <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                        <TextBlock Text="Apagar itens de conserto" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                     </StackPanel>
                 </Button>
             </Grid>

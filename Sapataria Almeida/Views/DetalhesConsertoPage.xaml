@@ -16,160 +16,169 @@
         <converters:DateToStringConverter x:Key="DateConverter"/>
         <converters:CurrencyFormatConverter x:Key="CurrencyConverter"/>
     </Page.Resources>
-   
-            <StackPanel Padding="20" Spacing="10">
-        <Button  Click="VoltarParaListagem" HorizontalAlignment="Left">
+
+    <StackPanel Padding="20" Spacing="10">
+        <Button Click="VoltarParaListagem" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" Spacing="5">
-                <SymbolIcon Symbol="Undo" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <SymbolIcon Symbol="Undo" Style="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </StackPanel>
         </Button>
 
-        <TextBlock Text="Ordem de Conserto" FontSize="20" FontWeight="Bold"/>
-
-        <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Data:"/>
-            <TextBlock Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
-            <TextBlock Text="Hora:"/>
-            <TextBlock Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
-        </StackPanel>
-
-        <TextBlock>
-      <Run Text="Cliente: "/>
-      <Run Text="{Binding Conserto.Cliente.Nome}"/>
+        <TextBlock> 
+            <Run Text="Ordem de Conserto N#" FontSize="20" FontWeight="Bold"/>
+            <Run Text="{Binding Conserto.Id}" FontSize="20" FontWeight="Bold"/>
         </TextBlock>
-        <TextBlock>
-      <Run Text="Telefone: "/>
-      <Run Text="{Binding Conserto.Cliente.Telefone}"/>
-        </TextBlock>
-        <TextBlock>
-      <Run Text="Pagamento: "/>
-      <Run Text="{Binding Conserto.MetodoPagamentoSinal}"/>
-        </TextBlock>
-        <TextBlock>
-       <Run Text="Estado da ordem de conserto: "/>
-       <Run Text="{Binding Conserto.Estado}"/>
-        </TextBlock>
-        <TextBlock>
-       <Run Text="Prazo final do conserto: "/>
-       <Run Text="{Binding Conserto.DataFinal , Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
-        </TextBlock>
-        <TextBlock>
-      <Run Text="Sinal: R$"/>
-      <Run Text="{Binding Conserto.Sinal, Converter={StaticResource CurrencyConverter}}"/>
-        </TextBlock>
-        <TextBlock FontWeight="Bold">
-      <Run Text="Total: "/>
-      <Run Text="{Binding ValorTotal, Converter={StaticResource CurrencyConverter}}"/>
-        </TextBlock>
+        <Grid ColumnSpacing="20" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
+            <Grid Grid.Column="0" RowSpacing="10" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
+                    <StackPanel Orientation="Vertical" >
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
+                            <TextBlock Text="Conserto" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
+                        </StackPanel>
+                        <TextBlock Padding="5">
+                            <Run Text="Data do pedido:"/>
+                            <Run Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                            <Run Text="Hora:"/>
+                            <Run Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
+                        </TextBlock>
+                        <TextBlock Padding="5">
+                            <Run Text="Previsão de finalização:"/>
+                            <Run Text="{Binding Conserto.DataFinal, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                        </TextBlock>
+                        <TextBlock Padding="5">
+                            <Run Text="Estado do serviço:"/>
+                            <Run Text="{Binding Conserto.Estado}"/>
+                        </TextBlock>
 
-        <!-- Novo botão -->
-        <Button 
-        Click="OnGerarTextoClick"
-        HorizontalAlignment="Left"
-        Margin="0,0,0,0">
-            <StackPanel Orientation="Horizontal" Spacing="5">
-                <SymbolIcon Symbol="CellPhone" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="Green"/>
-                <TextBlock Text="Gerar Texto para Whatsapp" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-            </StackPanel>
-        </Button>
-        <Button 
-        Click="OnAlterarConsertoClick"
-        HorizontalAlignment="Left"
-        Margin="0,5,0,0">
-            <StackPanel Orientation="Horizontal" Spacing="5">
-                <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
-                <TextBlock Text="Alterar Informações do Serviço" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-            </StackPanel>
-        </Button>
-        <Button 
-        Click="OnGerarImprimirClick"
-        HorizontalAlignment="Left"
-        Margin="0,5,0,0">
-            <StackPanel Orientation="Horizontal" Spacing="5">
-                <SymbolIcon Symbol="Print" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                <TextBlock Text="Imprimir Ordem de Serviço" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-            </StackPanel>
-        </Button>
-        <!--<Button Content="✔️Finalizar Ordem de Serviço"
-        Click="OnGerarImprimirClick"
-        HorizontalAlignment="Left"
-        Margin="0,5,0,0"/>-->
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
+                            <TextBlock Text="Cliente" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Spacing="10" Padding="5">
+                            <TextBlock >
+                            <Run Text="Nome: "/>
+                            <Run Text="{Binding Conserto.Cliente.Nome}"/>
+                            </TextBlock>
+                            <TextBlock>
+                            <Run Text="Telefone: "/>
+                            <Run Text="{Binding Conserto.Cliente.Telefone}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
+                <Border Grid.Row="2" BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
+                            <TextBlock Text="Pagamento" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
+                        </StackPanel>
+                        <TextBlock Padding="5">
+                        <Run Text="Metodo de pagamento do Sinal: "/>
+                        <Run Text="{Binding Conserto.MetodoPagamentoSinal}"/>
+                        </TextBlock>
+                        <TextBlock Padding="5">
+                        <Run Text="Sinal: R$"/>
+                        <Run Text="{Binding Conserto.Sinal, Converter={StaticResource CurrencyConverter}}"/>
+                        </TextBlock>
 
-
-        <TextBlock Text="Itens de Conserto:" FontWeight="Bold" Margin="0,10,0,0"/>
-
-        <ListView ItemsSource="{Binding Itens}" IsItemClickEnabled="False" >
-            <ListView.ItemTemplate>
-                <!-- sem x:Bind aqui, usamos Binding puro -->
-                <DataTemplate>
-                    <Border BorderBrush="{StaticResource BackgroundSecondary}" BorderThickness="1" Margin="3" CornerRadius="5">
-
-                        <Grid Padding="8">
+                        <TextBlock FontWeight="Bold" Padding="5">
+                        <Run Text="Total: "/>
+                        <Run Text="{Binding ValorTotal, Converter={StaticResource CurrencyConverter}}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical" >
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}">
+                            <TextBlock Text="Itens de Conserto:" FontWeight="Bold"  Foreground="{StaticResource AppBackgroundBrush}" Padding="5"/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <!-- Novo botão -->
+                        <Grid  ColumnSpacing="5" Padding="5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-
-                            <!-- TipoConserto -->
-                            <TextBlock
-                        Text="{Binding TipoConserto}"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"/>
-
-                            <TextBlock
-                        Text="{Binding Estado}"
-                        Grid.Column="1"
-                        VerticalAlignment="Center"/>
-
-                            <Button
-                        
-                         Grid.Column="2"
-                         Margin="10,0,0,0"
-                         Tag="{Binding}"         
-                         Click="OnGerarEstadoTexto_Click">
+                            <Button Grid.Column="0" Click="OnGerarTextoClick" HorizontalAlignment="Left" Margin="0,0,0,0">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <SymbolIcon Symbol="Message" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                                    <TextBlock Text="Mensagem do estado do produto" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                    <SymbolIcon Symbol="CellPhone" Style="{Binding Foreground,
+                                        RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="Green"/>
+                                    <TextBlock Text="Gerar Texto para Whatsapp" VerticalAlignment="Center" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                 </StackPanel>
                             </Button>
-
-                            <!-- Botão Editar -->
-                            <Button
-                         
-                          Grid.Column="3"
-                          Margin="10,0,0,0"
-                          Tag="{Binding}"         
-                        Click="EditItem_Click">
+                            <Button Grid.Column="1" Click="OnAlterarConsertoClick" HorizontalAlignment="Left" Margin="0,5,0,0">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
-                                    <SymbolIcon Symbol="Edit" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
-                                    <TextBlock Text="Atualizar conserto" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                    <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
+                                    <TextBlock Text="Alterar Informações do Serviço" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                 </StackPanel>
                             </Button>
-
+                            <Button Grid.Column="2" Click="OnGerarImprimirClick" HorizontalAlignment="Left"  Margin="0,5,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <SymbolIcon Symbol="Print" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                    <TextBlock Text="Imprimir Ordem de Serviço" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </StackPanel>
+                            </Button>
+  
                         </Grid>
                     </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch">
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}">
+                            <TextBlock Text="Itens de Conserto:" FontWeight="Bold"  Foreground="{StaticResource AppBackgroundBrush}" Padding="5"/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <ListView ItemsSource="{Binding Itens}" IsItemClickEnabled="False" HorizontalAlignment="Stretch" >
+                            <ListView.ItemTemplate >
+                                <DataTemplate >
+                                    <Grid Padding="5" ColumnSpacing="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
 
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="{Binding TipoConserto}" Grid.Column="0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Estado}" Grid.Column="1" VerticalAlignment="Center"/>
+                                        <Button Grid.Column="2" Margin="10,0,0,0" Tag="{Binding}" Click="EditItem_Click">
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
+                                                <TextBlock Text="Atualizar conserto" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </StackPanel>
-
 </Page>

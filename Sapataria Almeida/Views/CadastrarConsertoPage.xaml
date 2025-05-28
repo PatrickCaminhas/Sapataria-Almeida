@@ -43,7 +43,7 @@
             <!-- Busca de Cliente -->
             <TextBlock Text="Ordem de Serviço" FontSize="18" FontWeight="Bold"/>
 
-            <Grid ColumnDefinitions="Auto, Auto" ColumnSpacing="10">
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                 <!-- Coluna 0: Busca -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Buscar Cliente (nome ou telefone)" FontWeight="Bold"/>
@@ -71,7 +71,7 @@
               ItemsSource="{x:Bind ViewModel.ClientesEncontrados}"
               SelectedItem="{x:Bind ViewModel.ClienteSelecionado, Mode=TwoWay}"
               SelectionChanged="OnClienteSelecionado"
-              Width="400"
+              
               Height="150">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Cliente">
@@ -124,7 +124,7 @@
                 <TextBlock Text="Carrinho" FontSize="18" FontWeight="Bold"/>
                 <Grid Padding="5" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="222"/>
+                        <ColumnDefinition Width="2*"/>
                         <!-- Tipo de conserto -->
                         <ColumnDefinition Width="*"/>
                         <!-- Valor, ocupa espaço flexível -->
@@ -137,12 +137,12 @@
 
                 </Grid>
                 <Border BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10">
-                    <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" Height="300">
+                    <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" MinHeight="200">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:ItemConserto">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="2*"/>
                                         <!-- Tipo de conserto -->
                                         <ColumnDefinition Width="*"/>
                                         <!-- Valor, ocupa espaço flexível -->

@@ -37,9 +37,8 @@ namespace Sapataria_Almeida.Repositories
         }
            public string GetDashboardPassword()
            {
-               // Supondo que você tenha uma tabela Configuracoes com uma coluna DashboardPassword
-               var cfg = _ctx.Administracao.FirstOrDefault();
-               return cfg?.Senha ?? string.Empty;
+               var admin = _ctx.Administracao.FirstOrDefault();
+               return admin?.Senha ?? string.Empty;
            }
 
             public void SetDashboardPassword(string NovaSenha)
@@ -48,9 +47,8 @@ namespace Sapataria_Almeida.Repositories
                 if (login != null)
                 {
                     login.Senha = NovaSenha;
-                }
                 _ctx.SaveChanges();
-
+                }
             }
     }
 }

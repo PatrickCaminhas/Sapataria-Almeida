@@ -76,6 +76,60 @@ namespace Sapataria_Almeida.Views
             Frame.Navigate(typeof(MainPage));
         }
 
+        private void ValorTextBox_TextChanging(TextBox sender, TextBoxTextChangingEventArgs e)
+        {
+            // guarda posição original
+            int caret = sender.SelectionStart;
+
+            // filtra
+            string filtered = new string(sender.Text.Where(c => char.IsDigit(c) || c == ',').ToArray());
+
+            if (filtered != sender.Text)
+            {
+                sender.Text = filtered;
+                // reposiciona o caret sem jogá-lo pro fim
+                sender.SelectionStart = Math.Min(caret, filtered.Length);
+            }
+        }
+
+        // 2) Ao perder o foco, completa as casas decimais
+        private void ValorTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = (TextBox)sender;
+            var txt = tb.Text;
+
+            // Se estiver vazio, nada a fazer
+            if (string.IsNullOrWhiteSpace(txt))
+                return;
+
+            // Garante que reste só dígitos e vírgula
+            txt = new string(txt.Where(c => char.IsDigit(c) || c == ',').ToArray());
+
+            // Se não tem vírgula, basta acrescentar ",00"
+            if (!txt.Contains(','))
+            {
+                tb.Text = $"{txt},00";
+                return;
+            }
+
+            // Tem vírgula — separa parte inteira e decimal
+            var parts = txt.Split(new[] { ',' }, StringSplitOptions.None);
+            var intPart = parts[0];
+            var fracPart = parts.Length > 1 ? parts[1] : string.Empty;
+
+            // Limita fração a no máximo 2 dígitos
+            if (fracPart.Length > 2)
+                fracPart = fracPart.Substring(0, 2);
+
+            // Completa zeros na fração
+            if (fracPart.Length == 0)
+                fracPart = "00";
+            else if (fracPart.Length == 1)
+                fracPart += "0";
+
+            tb.Text = $"{intPart},{fracPart}";
+        }
+
         private void RemoverItem_Click(object sender, RoutedEventArgs e)
         {
             // Recupera o ItemVenda que veio no Tag  

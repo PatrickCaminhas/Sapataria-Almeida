@@ -95,7 +95,7 @@ namespace Sapataria_Almeida.Views
         {
             if (sender is Button btn && btn.Tag is ItemConserto item)
             {
-                var dialog = new EditarItemDialog(item);
+                var dialog = new VisualizarItemDialog(item);
                 dialog.XamlRoot = this.XamlRoot;
                 var result = await dialog.ShowAsync().AsTask();
                 if (result == ContentDialogResult.Primary)

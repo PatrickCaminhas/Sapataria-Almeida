@@ -98,10 +98,8 @@ RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                        HorizontalAlignment="Left"  
                                        Tag="{x:Bind Id}">
                                         <StackPanel Orientation="Horizontal" Spacing="5">
-                                            <SymbolIcon Symbol="OpenLocal" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                                            <TextBlock Text="Detalhes" VerticalAlignment="Center" Style="{Binding Foreground,
-RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <SymbolIcon Symbol="OpenLocal" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <TextBlock Text="Detalhes" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                         </StackPanel>
                                     </Button>
                                 </Grid>
