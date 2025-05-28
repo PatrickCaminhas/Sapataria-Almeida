@@ -122,6 +122,117 @@ namespace Sapataria_Almeida.Views
             }
         }
 
+        private async void BtnAdicionarProduto_Click(object sender, RoutedEventArgs e)
+        {
+            // instancia seu repositório (mesmo padrão que você já usa)
+            var ctx = new AppDbContext();
+            var repo = new RepositorioDados(ctx);
+
+            // cria o diálogo e atribui o XamlRoot
+            var dialog = new AdicionarProdutoVendido(repo)
+            {
+                XamlRoot = this.XamlRoot
+            };
+
+            // Substitui a chamada ao método inacessível por uma abordagem alternativa
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var success = new ContentDialog
+                {
+                    Title = "Sucesso",
+                    Content = "Produto adicionado com sucesso!",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+                await success.ShowAsync();
+            }
+        }
+        private async void BtnAdicionarProdutoConserto_Click(object sender, RoutedEventArgs e)
+        {
+            // instancia seu repositório (mesmo padrão que você já usa)
+            var ctx = new AppDbContext();
+            var repo = new RepositorioDados(ctx);
+
+            // cria o diálogo e atribui o XamlRoot
+            var dialog = new AdicionarProdutoConsertado(repo)
+            {
+                XamlRoot = this.XamlRoot
+            };
+
+            // Substitui a chamada ao método inacessível por uma abordagem alternativa
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var success = new ContentDialog
+                {
+                    Title = "Sucesso",
+                    Content = "Produto adicionado com sucesso!",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+                await success.ShowAsync();
+            }
+        }
+
+        private async void BtnRemoverProduto_Click(object sender, RoutedEventArgs e)
+        {
+            var ctx = new AppDbContext();
+            var repo = new RepositorioDados(ctx);
+
+            var dialog = new RemoverProdutoVendidoDialog(repo)
+            {
+                XamlRoot = this.XamlRoot
+            };
+
+            // Substitui a chamada ao método inacessível por uma abordagem alternativa
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var success = new ContentDialog
+                {
+                    Title = "Sucesso",
+                    Content = "Produto removido com sucesso!",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+                await success.ShowAsync();
+            }
+
+            // Opcional: recarregar a lista de produtos na ViewModel após remoção
+        }
+
+        private async void BtnRemoverProdutoConserto_Click(object sender, RoutedEventArgs e)
+        {
+            var ctx = new AppDbContext();
+            var repo = new RepositorioDados(ctx);
+
+            var dialog = new RemoverProdutoConsertadoDialog(repo)
+            {
+                XamlRoot = this.XamlRoot
+            };
+
+            // Substitui a chamada ao método inacessível por uma abordagem alternativa
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var success = new ContentDialog
+                {
+                    Title = "Sucesso",
+                    Content = "Produto removido com sucesso!",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+                await success.ShowAsync();
+            }
+
+            // Opcional: recarregar a lista de produtos na ViewModel após remoção
+        }
+
 
 
 

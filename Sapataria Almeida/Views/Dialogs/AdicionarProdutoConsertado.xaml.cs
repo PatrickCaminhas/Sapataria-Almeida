@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Sapataria_Almeida.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,11 +22,29 @@ namespace Sapataria_Almeida.Views.Dialogs
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AdicionarProdutoConsertado : Window
+    public sealed partial class AdicionarProdutoConsertado : ContentDialog
     {
-        public AdicionarProdutoConsertado()
+        private readonly IRepositorioDados _repositorio;
+
+        public AdicionarProdutoConsertado(IRepositorioDados repositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
+        }
+
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var nome = TxtNome.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(nome))
+            {
+                // impede o diálogo de fechar e exibe erro
+                args.Cancel = true;
+                ErrorText.Visibility = Visibility.Visible;
+                return;
+            }
+
+            // grava no banco
+            _repositorio.AddProdutoConserto(nome);
         }
     }
 }

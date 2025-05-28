@@ -5,6 +5,8 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Sapataria_Almeida.Models;
+using Sapataria_Almeida.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,14 +20,40 @@ using Windows.Foundation.Collections;
 
 namespace Sapataria_Almeida.Views.Dialogs
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class RemoverProdutoVendidoDialog : Window
+    public sealed partial class RemoverProdutoVendidoDialog : ContentDialog
     {
-        public RemoverProdutoVendidoDialog()
+        private readonly IRepositorioDados _repositorio;
+
+        public RemoverProdutoVendidoDialog(IRepositorioDados repositorio)
         {
             InitializeComponent();
+            _repositorio = repositorio;
+
+            // Carrega os produtos do banco
+            List<Produto> lista = _repositorio.GetProdutos();
+            CboProdutos.ItemsSource = lista;
+        }
+
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Lê o nome selecionado
+            var nomeSelecionado = CboProdutos.SelectedValue as string;
+            if (string.IsNullOrWhiteSpace(nomeSelecionado))
+            {
+                args.Cancel = true;
+                ErrorText.Text = "Você precisa selecionar um produto.";
+                ErrorText.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                return;
+            }
+
+            bool removed = _repositorio.RemoverProduto(nomeSelecionado);
+            if (!removed)
+            {
+                args.Cancel = true;
+                ErrorText.Text = "Falha ao remover. Produto não encontrado.";
+                ErrorText.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+            }
+            // se removed == true, o diálogo será fechado automaticamente
         }
     }
 }

@@ -10,13 +10,17 @@
     Title="Adicionar produto vendido"
     PrimaryButtonText="Salvar"
     CloseButtonText="Cancelar"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     Language="pt-BR"
     Background="{StaticResource AppBackgroundBrush}"
     Foreground="{StaticResource TextFillColorPrimary}">
 
-
-
-    <Grid>
-
-    </Grid>
+    <StackPanel Padding="16" Spacing="8">
+        <TextBlock Text="Nome do produto:"/>
+        <TextBox x:Name="TxtNome" PlaceholderText="Digite o nome" />
+        <TextBlock x:Name="ErrorText"
+                   Foreground="Red"
+                   Visibility="Collapsed"
+                   Text="O nome não pode ficar vazio."/>
+    </StackPanel>
 </ContentDialog>

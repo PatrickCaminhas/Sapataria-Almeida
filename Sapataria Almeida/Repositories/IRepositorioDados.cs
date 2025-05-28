@@ -11,5 +11,11 @@ namespace Sapataria_Almeida.Repositories
     {
         Task<List<Notificacao>> ObterNotificacoesNaoLidasAsync();
         Task MarcarNotificacaoComoLidaAsync(int notificacaoId);
+        void AddProduto(string nome);
+        void AddProdutoConserto(string nome);
+        public bool RemoverProduto(string nome);
+        public List<Produto> GetProdutos();
+        public List<ProdutoConserto> GetProdutosConserto();
+
     }
 }

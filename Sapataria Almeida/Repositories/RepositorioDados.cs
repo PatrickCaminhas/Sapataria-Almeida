@@ -21,6 +21,13 @@ namespace Sapataria_Almeida.Repositories
                    .OrderBy(p => p.Nome)
                    .ToList();
 
+        public List<ProdutoConserto> GetProdutosConserto()
+        => _ctx.ProdutoConserto
+                   .OrderBy(p => p.Nome)
+                   .ToList();
+
+
+
         public async Task<List<Notificacao>> ObterNotificacoesNaoLidasAsync()
             => await _ctx.Set<Notificacao>()
                          .Where(n => !n.Lida)
@@ -50,5 +57,50 @@ namespace Sapataria_Almeida.Repositories
                 _ctx.SaveChanges();
                 }
             }
+        public void AddProduto(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return;
+
+            _ctx.Produto.Add(new Models.Produto { Nome = nome.Trim() });
+            _ctx.SaveChanges();
+        }
+        public bool RemoverProduto(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return false;
+
+            var produto = _ctx.Produto.FirstOrDefault(p => p.Nome == nome.Trim());
+            if (produto != null)
+            {
+                _ctx.Produto.Remove(produto);
+                _ctx.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
+  
+
+        public void AddProdutoConserto(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return;
+
+            _ctx.ProdutoConserto.Add(new Models.ProdutoConserto { Nome = nome.Trim() });
+            _ctx.SaveChanges();
+        }
+
+        public void RemoveProdutoConserto(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                return;
+
+            _ctx.ProdutoConserto.Add(new Models.ProdutoConserto { Nome = nome.Trim() });
+            _ctx.SaveChanges();
+        }
+
+
     }
 }

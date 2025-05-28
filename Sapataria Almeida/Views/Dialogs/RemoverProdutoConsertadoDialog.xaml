@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window
+<ContentDialog
     x:Class="Sapataria_Almeida.Views.Dialogs.RemoverProdutoConsertadoDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,13 +7,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="RemoverProdutoConsertadoDialog">
+    Title="Remover produto consertado"
+    PrimaryButtonText="Remover"
+    CloseButtonText="Cancelar"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    Language="pt-BR"
+    Background="{StaticResource AppBackgroundBrush}"
+    Foreground="{StaticResource TextFillColorPrimary}">
 
-    <Window.SystemBackdrop>
-        <MicaBackdrop />
-    </Window.SystemBackdrop>
+    <StackPanel Padding="16" Spacing="8">
+        <TextBlock Text="Selecione o produto a remover:"/>
+        <ComboBox x:Name="CboProdutos"
+                  PlaceholderText="Escolha um produto..."
+                  DisplayMemberPath="Nome"
+                  SelectedValuePath="Nome"/>
+        <TextBlock x:Name="ErrorText"
+                   Foreground="Red"
+                   Visibility="Collapsed"
+                   Text="Você precisa selecionar um produto."/>
 
-    <Grid>
+    </StackPanel>
+</ContentDialog>
 
-    </Grid>
-</Window>
