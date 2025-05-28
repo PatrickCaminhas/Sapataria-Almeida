@@ -23,18 +23,16 @@ namespace Sapataria_Almeida.Views.Dialogs;
 /// <summary>
 /// An empty window that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class DashboardPasswordDialog : ContentDialog
+public sealed partial class AlterarSenhaAdminDialog : ContentDialog
 {
     private readonly RepositorioDados _repositorio;
 
-    public DashboardPasswordDialog(RepositorioDados repositorio)
+    public AlterarSenhaAdminDialog(RepositorioDados repositorio)
     {
-
-        this.InitializeComponent();
-
+        InitializeComponent();
         _repositorio = repositorio;
-    }
 
+    }
     public async Task<bool> RequestPasswordAsync()
     {
         var result = await this.ShowAsync();
@@ -44,12 +42,13 @@ public sealed partial class DashboardPasswordDialog : ContentDialog
         var correta = _repositorio.GetDashboardPassword();
         if (PwdBox.Password == correta)
         {
+            _repositorio.SetDashboardPassword(PwdBoxNew.Password);
             return true;
         }
         else
         {
             // mostra erro e mantém o diálogo aberto
-            ErrorText.Text = "Senha incorreta. Tente novamente. "+correta+" | "+ PwdBox.Password;
+            ErrorText.Text = "Senha incorreta. Tente novamente.";
             ErrorText.Visibility = Visibility.Visible;
         }
         return await RequestPasswordAsync();

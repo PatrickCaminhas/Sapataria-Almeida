@@ -41,5 +41,16 @@ namespace Sapataria_Almeida.Repositories
                var cfg = _ctx.Administracao.FirstOrDefault();
                return cfg?.Senha ?? string.Empty;
            }
+
+            public void SetDashboardPassword(string NovaSenha)
+            {
+                var login = _ctx.Administracao.FirstOrDefault();
+                if (login != null)
+                {
+                    login.Senha = NovaSenha;
+                }
+                _ctx.SaveChanges();
+
+            }
     }
 }

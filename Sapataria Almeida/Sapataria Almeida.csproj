@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Remove="Views\CadastrarVendaPage.xaml" />
     <None Remove="Views\DetalhesConsertoPage.xaml" />
+    <None Remove="Views\Dialogs\AlterarSenhaAdminDialog.xaml" />
     <None Remove="Views\Dialogs\DashboardPasswordDialog.xaml" />
     <None Remove="Views\Dialogs\EditarItemDialog.xaml" />
     <None Remove="Views\EditarItensConsertoPage.xaml" />
@@ -110,6 +111,11 @@
     <Content Update="Assets\PaginaInicial2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dialogs\AlterarSenhaAdminDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\ShellPage.xaml">
