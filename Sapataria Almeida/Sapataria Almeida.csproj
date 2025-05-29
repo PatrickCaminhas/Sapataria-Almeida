@@ -207,5 +207,9 @@
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <DefaultLanguage>pt-BR</DefaultLanguage>
+    <PackageCertificateThumbprint>3F99170665458FD8557CE60617DE8A9B33249F76</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>Sapataria Almeida_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 </Project>

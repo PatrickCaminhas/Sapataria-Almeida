@@ -9,13 +9,13 @@
 
   <Identity
     Name="0154d1b8-a6ec-4fed-800d-f04fa40b0197"
-    Publisher="CN=Patrick"
+    Publisher="CN=Patrick Caminhas"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="0154d1b8-a6ec-4fed-800d-f04fa40b0197" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Sapataria Almeida</DisplayName>
+    <DisplayName>Sistema de Gerenciamento de Sapataria</DisplayName>
     <PublisherDisplayName>Patrick</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -34,13 +34,15 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Sapataria Almeida"
-        Description="Sapataria Almeida"
+        DisplayName="Sistemas de Controle de Sapataria"
+        Description="Sistema de controle de vendas e consertos de sapataria."
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
