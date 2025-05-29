@@ -89,17 +89,22 @@
                         InputScope="TelephoneNumber"  x:Name="TelefoneTextBox" 
                         TextChanging="TelefoneTextBox_TextChanging"/>
             <!-- Itens de Conserto -->
-            <TextBlock Text="Tipo de Conserto e Valor" FontWeight="Bold" Margin="0,20,0,0"/>
+            <TextBlock Text="Tipo de Conserto e Valor" FontWeight="Bold" Margin="0,10,0,0"/>
             <StackPanel Orientation="Horizontal" Spacing="10">
-                <TextBox Width="200" PlaceholderText="Tipo"
-                 Text="{x:Bind ViewModel.TipoConserto, Mode=TwoWay}"/>
-                <TextBox  Width="100" x:Name="ValorTextBox"
-                          PlaceholderText="Valor"
-                          InputScope="Number"
-                          Text="{x:Bind ViewModel.ValorConserto, Mode=TwoWay}"
-                          TextChanging="ValorTextBox_TextChanging"
-                          LostFocus="ValorTextBox_LostFocus"/>
+                <!-- Combobox agora correto: exibe a lista de TiposConserto -->
+                <ComboBox Width="200"
+              ItemsSource="{x:Bind ViewModel.TiposConserto, Mode=OneWay}"
+              SelectedItem="{x:Bind ViewModel.TipoConserto, Mode=TwoWay}"
+              PlaceholderText="Selecione o tipo de conserto"/>
+
+                <TextBox Width="100"
+             PlaceholderText="Valor"
+             InputScope="Number"
+             Text="{x:Bind ViewModel.ValorConserto, Mode=TwoWay}"
+             TextChanging="ValorTextBox_TextChanging"
+             LostFocus="ValorTextBox_LostFocus"/>
             </StackPanel>
+
             <TextBlock Text="Descrição (opcional)" FontWeight="Bold"/>
             <TextBox Text="{x:Bind ViewModel.Descricao, Mode=TwoWay}"
                AcceptsReturn="True" Height="50"/>
@@ -120,24 +125,19 @@
         <!-- DIREITA: Carrinho e Finalização -->
 
         <StackPanel Grid.Column="1" Margin="20" Spacing="5" >
-            <StackPanel BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10" Spacing="10">
+            <StackPanel BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="5" Spacing="5">
                 <TextBlock Text="Carrinho" FontSize="18" FontWeight="Bold"/>
-                <Grid Padding="5" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <!-- Tipo de conserto -->
-                        <ColumnDefinition Width="*"/>
-                        <!-- Valor, ocupa espaço flexível -->
-                        <ColumnDefinition Width="Auto"/>
-                        <!-- Botão remover -->
-                    </Grid.ColumnDefinitions>
-                    <TextBlock VerticalAlignment="Center" Grid.Column="0">Conserto</TextBlock>
-                    <TextBlock VerticalAlignment="Center" Grid.Column="1">Preço</TextBlock>
-                    <TextBlock VerticalAlignment="Center" Grid.Column="2">Remover</TextBlock>
 
-                </Grid>
-                <Border BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10">
-                    <ListView ItemsSource="{x:Bind ViewModel.Carrinho}" MinHeight="200">
+                <Border BorderBrush="{StaticResource BorderCollor}"
+        BorderThickness="2"
+        CornerRadius="10"
+        Padding="10">
+                    <ListView
+        ItemsSource="{x:Bind ViewModel.Carrinho}"
+        MinHeight="100"
+        MaxHeight="200"
+        ScrollViewer.VerticalScrollMode="Enabled"
+        ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:ItemConserto">
                                 <Grid>
@@ -172,11 +172,9 @@
                 <TextBlock Text="Método de Pagamento:" FontWeight="Bold"/>
                 <ComboBox ItemsSource="{x:Bind ViewModel.MetodosPagamento}"
                 SelectedItem="{x:Bind ViewModel.MetodoPagamento, Mode=TwoWay}"
-                PlaceholderText="Selecione">
+                PlaceholderText="Selecione"/>
 
-                </ComboBox>
-
-                <TextBlock Text="Sinal (R$):" FontWeight="Bold" Margin="0,10,0,0"/>
+                <TextBlock Text="Sinal (R$):" FontWeight="Bold" Margin="0,5,0,0"/>
                 <TextBox  x:Name="SinalTextBox"
                       PlaceholderText="Sinal"
                       InputScope="Number"
@@ -189,8 +187,20 @@
             x:Name="DataFinalPicker"
             Date="{Binding DataFinalOffset, Mode=TwoWay, Converter={StaticResource DtoConverter}}"
             />
+
+                <!-- Total e Mínimo de sinal -->
+                <StackPanel Margin="0,5,0,0" Spacing="5">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Total:" FontWeight="Bold" Width="120"/>
+                        <TextBlock Text="{x:Bind ViewModel.Total, Mode=OneWay, Converter={StaticResource CurrencyConverter}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBlock Text="Mínimo sinal:" FontWeight="Bold" Width="120"/>
+                        <TextBlock Text="{x:Bind ViewModel.MinimoSinal, Mode=OneWay, Converter={StaticResource CurrencyConverter}}"/>
+                    </StackPanel>
+                </StackPanel>
+
                 <Button x:Name="BtnFinalizar"
-            
                 Click="BtnFinalizar_Click"
                HorizontalAlignment="Stretch" Padding="15,10" FontWeight="Bold">
                     <StackPanel Orientation="Horizontal" Spacing="5">

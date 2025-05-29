@@ -26,7 +26,7 @@ namespace Sapataria_Almeida.Repositories
                    .OrderBy(p => p.Nome)
                    .ToList();
 
-
+     
 
         public async Task<List<Notificacao>> ObterNotificacoesNaoLidasAsync()
             => await _ctx.Set<Notificacao>()

@@ -40,7 +40,7 @@
                 </Button>
             <StackPanel BorderBrush="{StaticResource BorderCollor}" BorderThickness="2" CornerRadius="10" Padding="10" Spacing="10">
 
-                <TextBlock Text="Tipo de Produto:" FontWeight="Bold"/>
+                <TextBlock Text="Produto:" FontWeight="Bold"/>
                 <ComboBox 
                 ItemsSource="{x:Bind ViewModel.TiposProdutos}"
                 SelectedItem="{x:Bind ViewModel.TipoProduto, Mode=TwoWay}"

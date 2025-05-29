@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using Sapataria_Almeida.Data;
 using Sapataria_Almeida.Models;
+using Sapataria_Almeida.Repositories;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Sapataria_Almeida.ViewModels
 {
     public partial class CadastroConsertoViewModel : ObservableObject
     {
+        private readonly RepositorioDados _repositorio;
         private readonly AppDbContext _db = new AppDbContext();
 
         // — BUSCA DE CLIENTE —
@@ -39,6 +41,7 @@ namespace Sapataria_Almeida.ViewModels
         // — PAGAMENTO E SINAL —
         public ObservableCollection<string> MetodosPagamento { get; } = new(
             new[] { "Dinheiro", "Pix", "Cartão de Credito", "Cartão de Debito", "Cheque" });
+        public ObservableCollection<string> TiposConserto { get; } = new();
         [ObservableProperty] private string _metodoPagamento = string.Empty;
         [ObservableProperty] private string _sinal = string.Empty;
 
@@ -46,7 +49,8 @@ namespace Sapataria_Almeida.ViewModels
         [ObservableProperty]
         private DateTimeOffset? _dataFinalOffset;
 
-
+        public decimal Total => Carrinho.Sum(i => i.Valor);
+        public decimal MinimoSinal => Total / 2;
 
 
 
@@ -58,11 +62,22 @@ namespace Sapataria_Almeida.ViewModels
 
         public CadastroConsertoViewModel()
         {
+            _repositorio = new RepositorioDados(_db);
             SearchClienteCommand = new RelayCommand(OnSearchCliente);
             SelectClienteCommand = new RelayCommand<Cliente?>(OnSelectCliente);
             AddItemCommand = new RelayCommand(OnAddItem);
             FinalizarCommand = new AsyncRelayCommand(OnFinalizarAsync, CanFinalizar);
             DataFinalOffset = null;
+            var lista = _repositorio.GetProdutosConserto();
+            foreach (var pc in lista)
+                TiposConserto.Add(pc.Nome);
+
+            Carrinho.CollectionChanged += (_, __) =>
+            {
+                OnPropertyChanged(nameof(Total));
+                OnPropertyChanged(nameof(MinimoSinal));
+                FinalizarCommand.NotifyCanExecuteChanged();
+            };
         }
 
         private void OnSearchCliente()
