@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page  
+    x:Class="Sistema_Sapataria.Views.DetalhesConsertoFinalizadoPage"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+    xmlns:local="using:Sistema_Sapataria.Views"  
+    xmlns:vm="using:Sistema_Sapataria.ViewModels"  
+    xmlns:models="using:Sistema_Sapataria.Models"  
+    xmlns:converters="using:Sistema_Sapataria.Converters"  
+     
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:DateToStringConverter x:Key="DateConverter"/>
+        <converters:CurrencyFormatConverter x:Key="CurrencyConverter"/>
+    </Page.Resources>
+
+    <StackPanel Padding="20" Spacing="10">
+        <Button Click="VoltarParaListagem" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <SymbolIcon Symbol="Undo" Style="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                <TextBlock Text="Voltar" VerticalAlignment="Center" Style="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </StackPanel>
+        </Button>
+
+        <TextBlock> 
+            <Run Text="Ordem de Conserto N#" FontSize="20" FontWeight="Bold"/>
+            <Run Text="{Binding Conserto.Id}" FontSize="20" FontWeight="Bold"/>
+        </TextBlock>
+        <Grid ColumnSpacing="20" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" RowSpacing="10" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
+                    <StackPanel Orientation="Vertical" >
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
+                            <TextBlock Text="Datas" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
+                        </StackPanel>
+                        <TextBlock 
+                        Padding="5">
+                        <Run Text="Data do pedido:"/>
+                        <Run Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                        <Run Text="Hora:"/>
+                        <Run Text="{Binding Conserto.DataAbertura, Converter={StaticResource DateConverter}, ConverterParameter='HH:mm'}"/>
+                        </TextBlock>
+                        <TextBlock 
+                        Padding="5">
+                        <Run Text="Previsão de finalização:"/>
+                        <Run Text="{Binding Conserto.DataFinal, Converter={StaticResource DateConverter}, ConverterParameter='dd/MM/yyyy'}"/>
+                        </TextBlock>
+
+
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="1" BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
+                            <TextBlock Text="Cliente" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Spacing="10" Padding="5">
+                            <TextBlock >
+                            <Run Text="Nome: "/>
+                            <Run Text="{Binding Conserto.Cliente.Nome}"/>
+                            </TextBlock>
+                            <TextBlock>
+                            <Run Text="Telefone: "/>
+                            <Run Text="{Binding Conserto.Cliente.Telefone}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2" BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}" Padding="5">
+                            <TextBlock Text="Pagamento" FontSize="18" FontWeight="Bold" Foreground="{StaticResource AppBackgroundBrush}"/>
+                        </StackPanel>
+                        <TextBlock Padding="5">
+                        <Run Text="Metodo de pagamento do Sinal: "/>
+                        <Run Text="{Binding Conserto.MetodoPagamentoSinal}"/>
+                        </TextBlock>
+                        <TextBlock Padding="5">
+                        <Run Text="Sinal: R$"/>
+                        <Run Text="{Binding Conserto.Sinal, Converter={StaticResource CurrencyConverter}}"/>
+                        </TextBlock>
+
+                        <TextBlock FontWeight="Bold" Padding="5">
+                        <Run Text="Total: "/>
+                        <Run Text="{Binding ValorTotal, Converter={StaticResource CurrencyConverter}}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical" >
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}">
+                            <TextBlock Text="Itens de Conserto:" FontWeight="Bold"  Foreground="{StaticResource AppBackgroundBrush}" Padding="5"/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <!-- Novo botão -->
+                        <Grid  ColumnSpacing="5" Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Click="OnGerarTextoClick" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <SymbolIcon Symbol="CellPhone" Style="{Binding Foreground,
+                                        RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="Green"/>
+                                    <TextBlock Text="Gerar Texto para Whatsapp" VerticalAlignment="Center" Style="{Binding Foreground,
+                                RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column="1" Click="OnAlterarConsertoClick" HorizontalAlignment="Left" Margin="0,5,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
+                                    <TextBlock Text="Alterar Informações do Serviço" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Column="2" Click="OnFinalizarConsertoClick" HorizontalAlignment="Left" Margin="0,5,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <SymbolIcon Symbol="Accept" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                    <TextBlock Text="Retirar produtos" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch">
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <StackPanel Background="{StaticResource TextFillColorPrimary}">
+                            <TextBlock Text="Itens de Conserto:" FontWeight="Bold"  Foreground="{StaticResource AppBackgroundBrush}" Padding="5"/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="{StaticResource TextFillColorPrimary}" BorderThickness="2" HorizontalAlignment="Stretch">
+                        <ListView ItemsSource="{Binding Itens}" IsItemClickEnabled="False" HorizontalAlignment="Stretch" >
+                            <ListView.ItemTemplate >
+                                <DataTemplate >
+                                    <Grid Padding="5" ColumnSpacing="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="{Binding TipoConserto}" Grid.Column="0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Estado}" Grid.Column="1" VerticalAlignment="Center"/>
+                                        <Button Grid.Column="2" Margin="10,0,0,0" Tag="{Binding}" Click="EditItem_Click">
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <SymbolIcon Symbol="Edit" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="DarkRed"/>
+                                                <TextBlock Text="Atualizar conserto" VerticalAlignment="Center" Style="{Binding Foreground,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </StackPanel>
+</Page>

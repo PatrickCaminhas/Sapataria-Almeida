@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="Sistema_Sapataria.Views.Dialogs.EditarItemDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Editar Item de Conserto"
+    PrimaryButtonText="Salvar"
+    SecondaryButtonText="Cancelar"
+    PrimaryButtonClick="OnSaveClick"  >
+
+    <Grid Width="550" Height="400">
+
+        <StackPanel Spacing="10" Padding="20">
+            <!-- Mostra somente o Tipo (não editável) -->
+            <TextBlock Text="{Binding TipoConserto}" FontWeight="Bold"/>
+
+            <TextBlock Text="Valor:"/>
+            <TextBox x:Name="ValorBox"
+             Text="{Binding Valor, Mode=OneTime}"    
+            InputScope="Number"/>
+
+            <TextBlock Text="Descrição:"/>
+            <TextBox x:Name="DescricaoBox"
+             Text="{Binding Descricao, Mode=OneTime}"
+             AcceptsReturn="True" TextWrapping="Wrap"
+             Height="150" ScrollViewer.VerticalScrollBarVisibility="Visible"  
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+
+
+            <TextBlock Text="Estado:"/>
+            <ComboBox x:Name="EstadoCombo"
+              SelectedItem="{Binding Estado, Mode=TwoWay}"
+              PlaceholderText="Selecione o estado">
+            </ComboBox>
+
+        </StackPanel>
+    </Grid>
+</ContentDialog>

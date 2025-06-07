@@ -1,0 +1,24 @@
+<ContentDialog
+    x:Class="Sistema_Sapataria.Views.Dialogs.RetirarProdutosDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Editar Conserto"
+    PrimaryButtonText="Salvar"
+    SecondaryButtonText="Cancelar"
+    PrimaryButtonClick="OnSaveClick"
+    Language="pt-BR"
+    Background="{StaticResource AppBackgroundBrush}"
+    Foreground="{StaticResource TextFillColorPrimary}">
+
+    <Grid Width="550" Height="100">
+        <StackPanel Spacing="10" Padding="20">
+
+            <!-- Estado -->
+            <TextBlock Text="Metodo de pagamento:"/>
+            <ComboBox
+                x:Name="PagamentoCombo"
+                PlaceholderText="Selecione o estado" />
+
+        </StackPanel>
+    </Grid>
+</ContentDialog>

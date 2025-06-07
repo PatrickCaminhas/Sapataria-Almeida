@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Sistema Sapataria (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Sistema Sapataria (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
